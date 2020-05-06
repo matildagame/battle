@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/andando.dae-39f3c40f10c903c00351ca1e2fff2956.scn"
+path="res://.import/Zombie Dying.dae-1fc9754381c354e8e098c207f0434359.scn"
 
 [deps]
 
-source_file="res://personajes/Matilda/animaciones/andando.dae"
-dest_files=[ "res://.import/andando.dae-39f3c40f10c903c00351ca1e2fff2956.scn" ]
+source_file="res://personajes/alienShooter/animaciones/Zombie Dying.dae"
+dest_files=[ "res://.import/Zombie Dying.dae-1fc9754381c354e8e098c207f0434359.scn" ]
 
 [params]
 

@@ -1,6 +1,6 @@
 extends KinematicBody
 
-var LineDrawer = preload("res://DrawLine3D.gd").new()
+var LineDrawer = preload("res://Personajes/Matilda/prefab/DrawLine3D.gd").new()
 
 # stats (Vida de los enemigos)
 var curHp : int = 3
@@ -64,7 +64,6 @@ func move_to(target_pos):
 	# Create a proper curve from the path (¿Create Smoothed Version?)
 	path = curve.get_baked_points()
 
-#	draw_path(path)
 		
 # called when the enemy deals damage to matilda
 func take_damage(damageToTake):
@@ -96,5 +95,4 @@ func draw_path(path):
 	for i in range(len(path)):
 		if i<len(path)-1:
 			LineDrawer.DrawLine(path[i],path[i+1],Color(1, 0, 0),5)
-	
 	

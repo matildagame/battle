@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/andando.dae-39f3c40f10c903c00351ca1e2fff2956.scn"
+path="res://.import/Mutant Swiping.dae-f688952e0132aaaac67b9044c13a7693.scn"
 
 [deps]
 
-source_file="res://personajes/Matilda/animaciones/andando.dae"
-dest_files=[ "res://.import/andando.dae-39f3c40f10c903c00351ca1e2fff2956.scn" ]
+source_file="res://personajes/alienShooter/animaciones/Mutant Swiping.dae"
+dest_files=[ "res://.import/Mutant Swiping.dae-f688952e0132aaaac67b9044c13a7693.scn" ]
 
 [params]
 

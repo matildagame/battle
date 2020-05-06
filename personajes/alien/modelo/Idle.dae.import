@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/andando.dae-39f3c40f10c903c00351ca1e2fff2956.scn"
+path="res://.import/Idle.dae-273b1b176fe1641889587d8830f02789.scn"
 
 [deps]
 
-source_file="res://personajes/Matilda/animaciones/andando.dae"
-dest_files=[ "res://.import/andando.dae-39f3c40f10c903c00351ca1e2fff2956.scn" ]
+source_file="res://personajes/alien/modelo/Idle.dae"
+dest_files=[ "res://.import/Idle.dae-273b1b176fe1641889587d8830f02789.scn" ]
 
 [params]
 

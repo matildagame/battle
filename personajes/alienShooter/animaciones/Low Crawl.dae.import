@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/andando.dae-39f3c40f10c903c00351ca1e2fff2956.scn"
+path="res://.import/Low Crawl.dae-f419e815caf49b08f4342793a3d5807b.scn"
 
 [deps]
 
-source_file="res://personajes/Matilda/animaciones/andando.dae"
-dest_files=[ "res://.import/andando.dae-39f3c40f10c903c00351ca1e2fff2956.scn" ]
+source_file="res://personajes/alienShooter/animaciones/Low Crawl.dae"
+dest_files=[ "res://.import/Low Crawl.dae-f419e815caf49b08f4342793a3d5807b.scn" ]
 
 [params]
 
