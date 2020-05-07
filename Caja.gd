@@ -22,6 +22,7 @@ func _ready():
 func _process(delta):
 	pass
 
+
 func _on_Caja_body_entered(body):
 	#	print("bullet collision!")
 	if(body==player):
