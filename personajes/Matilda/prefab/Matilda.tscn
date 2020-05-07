@@ -520,5 +520,4 @@ anims/rotar-izquierda = ExtResource( 8 )
 transform = Transform( -5.43069e-08, 0.255348, -0.214263, 0, 0.214263, 0.255348, 0.333333, 4.16015e-08, -3.49078e-08, -0.565427, 0.654307, 0.100511 )
 fov = 50.0
 script = ExtResource( 9 )
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 [connection signal="timeout" from="Temporizador" to="." method="_on_Temporizador_timeout"]
