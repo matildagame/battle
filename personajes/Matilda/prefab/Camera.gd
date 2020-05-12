@@ -25,15 +25,20 @@ func _ready():
 #	
 func _input(event):
 	
-	# Move to left-click
+	# Move to Any point PRESSED in the world
 	if event is InputEventMouseButton and event.pressed and event.button_index == 1:
 		var from = project_ray_origin(event.position)
 		var to = from + project_ray_normal(event.position) * ray_length
 		var space_state = get_world().direct_space_state
 		var result = space_state.intersect_ray(from, to, [], 1)
 		if result:
-			get_tree().call_group("units", "move_to", result.position)
-	
+			# Update path to wherever is clicked
+			get_tree().call_group("units", "update_path", result.position)
+			GlobalVariables.move = true
+			
+
+	#---------------------------------------------------------------------------
+	#---------------------------------------------------------------------------
 	# Zoom
 	if event is InputEventMouseButton:
 		if event.is_pressed():
@@ -46,9 +51,9 @@ func _input(event):
 			# zoom out
 			if event.button_index == BUTTON_WHEEL_DOWN:
 				print(fov)
-				if fov < 70:
+				if fov < 80:
 					fov += 1.5				
-					
+		
 			
 # Follow the player
 func _physics_process(delta):

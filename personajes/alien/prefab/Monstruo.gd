@@ -1,8 +1,9 @@
 extends KinematicBody
 
 # stats (Vida de los enemigos)
-var curHp : int = 3
-var maxHp : int = 3
+
+export var maxHp : int = 3
+var curHp = maxHp
  
 # attacking
 var damage : int = 1
@@ -29,10 +30,11 @@ var vel : Vector3 = Vector3()
 onready var chase_timer = get_node("ChaseTimer")
 onready var attack_timer = get_node("AttackTimer")
 onready var anim = get_node("AnimationPlayer")
-onready var ray_cast = get_node("RayCastMonster") 
+onready var ray_cast = get_node("RayCast") 
 onready var player = get_node("/root/WorldMap/Navigation/Matilda") 
 
 # Aux variables
+var muerto = false
 # Areas
 onready var target_detected = false
 onready var target_reached = false
@@ -50,6 +52,7 @@ enum ESTADOS {parado,andando,atacando,muriendo,bailando,rotando_derecha,rotando_
 var estado=ESTADOS.parado
 
 func _ready():
+	
 
 	# Configure ray_cast (Add collision exception to rayCast)
 	ray_cast.add_exception($CollisionShape)
@@ -63,7 +66,7 @@ func _ready():
 func _on_AttackTimer_timeout():
 	# Ataque cuerpo a cuerpo
 	# if matilda currently reached
-	if target_reached:
+	if target_reached and !muerto:
 		# Matila still alive...
 		if player.curHp > 0:
 			attack_timer.start()
@@ -109,10 +112,10 @@ func _on_ChaseTimer_timeout():
 #					target_detected = false;
 
 	else:
-
-		chasing_area = false;
-		target_detected = false;
-		pararse()
+		if !muerto:
+			chasing_area = false;
+			target_detected = false;
+			pararse()
 	
 	# Once chasing parameters are up to date: Attacking paramenters	
 	if target_detected:
@@ -128,7 +131,7 @@ func _on_ChaseTimer_timeout():
 # called 60 times a second
 func _physics_process (_delta):
 	
-	if chasing_area and target_detected and !target_reached :
+	if chasing_area and target_detected and !target_reached and !muerto:
 		andar()	
 		# Navmesh Chasing
 		if path_ind < path.size():
@@ -145,7 +148,7 @@ func _physics_process (_delta):
 				move_and_slide(move_vec.normalized() * move_speed, Vector3(1, 0, 0))		
 	
 	# Target reached within chasing area
-	elif target_reached:
+	elif target_reached  and !muerto:
 		# Look at player within the attack range
 		$Skeleton.look_at(player.translation,Vector3(0,1,0))
 		$Skeleton.rotation_degrees.y += 180 # ¿?
@@ -182,3 +185,60 @@ func atacar():
 	estado=ESTADOS.atacando
 	anim.play("atacar")
 	
+func morir_atras():
+
+#	player.take_damage(damage) # Matilda
+	estado=ESTADOS.muriendo
+	anim.play("morir-atras")
+	muerto = true;
+
+
+# Funciones Interfaz
+func take_damage(damageToTake):
+#	print("Matilda: AU!!!")
+	curHp -= damageToTake
+	print("Healthy Point: " + str(curHp))
+	# if our health reaches 0 - die
+	if curHp <= 0:
+		morir_atras()
+
+
+
+func _input(event):
+	# General Input
+	if event is InputEventMouseButton  and event.button_index == 1 and event.pressed:
+		GlobalVariables.attack = false;
+		GlobalVariables.select = false;
+		GlobalVariables.target_enemy = null;
+
+
+func _on_Monstruo_input_event(camera, event, click_position, click_normal, shape_idx):
+	# Select
+	if event is InputEventMouseButton  and event.button_index == 1 and event.pressed and !event.doubleclick:
+		print('Single click: Seleccionar', event)
+		#TODO: Show monsters stats somehow through the HUD
+		GlobalVariables.attack = false;
+		GlobalVariables.select = true;
+		GlobalVariables.move = false;
+		
+		# Update the target enemy (Monster has been selected!)
+		GlobalVariables.target_enemy = get_node(get_path())
+		
+	# Attack
+	elif event is InputEventMouseButton and event.button_index == 1 and event.pressed  and  event.doubleclick :
+		print('double click: Atacar ', event)
+		GlobalVariables.attack = true;
+		GlobalVariables.select = true;
+		GlobalVariables.move = true;
+		# Update the targer enemy  (Monster has been selected to be attacked!)
+		GlobalVariables.target_enemy = get_node(get_path())
+
+	
+# Emitted when mouse pointer enters the monster's shape
+func _on_Monstruo_mouse_entered():
+	pass
+#	print("Raton sobre Monstruo")
+
+func _on_Monstruo_mouse_exited():
+	pass
+#	print("Raton sale Monstruo")

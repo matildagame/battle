@@ -292,7 +292,7 @@ anims/morir = ExtResource( 4 )
 anims/morir-atras = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.0270799, 0.00667649 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0316766, 0 )
 shape = SubResource( 2 )
 
 [node name="ChaseTimer" type="Timer" parent="."]
@@ -301,10 +301,13 @@ shape = SubResource( 2 )
 process_mode = 0
 one_shot = true
 
-[node name="RayCastMonster" type="RayCast" parent="."]
+[node name="RayCast" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0399613, 8.02785e-05 )
 enabled = true
 cast_to = Vector3( 0, 0, 1000 )
 collide_with_areas = true
+[connection signal="input_event" from="." to="." method="_on_Monstruo_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_Monstruo_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Monstruo_mouse_exited"]
 [connection signal="timeout" from="ChaseTimer" to="." method="_on_ChaseTimer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

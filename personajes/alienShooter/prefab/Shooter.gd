@@ -29,7 +29,7 @@ var vel : Vector3 = Vector3()
 onready var chase_timer = get_node("ChaseTimer")
 onready var attack_timer = get_node("AttackTimer")
 onready var anim = get_node("AnimationPlayer")
-onready var ray_cast = get_node("RayCastMonster") 
+onready var ray_cast = get_node("RayCast") 
 onready var player = get_node("/root/WorldMap/Navigation/Matilda") 
 
 # Scene resources
@@ -37,6 +37,7 @@ const BULLET = preload("res://personajes/alienShooter/prefab/Bullet.tscn")
 var BulletPosition # Where the bullet is gonna be instaciated
 
 # Aux variables
+var muerto = false
 # Areas
 onready var chase = false
 onready var target_detected = false
@@ -76,12 +77,12 @@ func fire():
 func _on_AttackTimer_timeout():
 	# Ataque cuerpo a cuerpo
 	# if matilda currently reached
-	if target_reached:
+	if target_reached and !muerto:
 		# Matila still alive...
 		if player.curHp > 0:
 			attack_timer.start()
 			print("Mons: Toma!")
-						# Instanciate and fire a bullet
+			# Instanciate and fire a bullet
 			fire()
 	
 		# Matila death
@@ -106,7 +107,7 @@ func _on_ChaseTimer_timeout():
 
 	# Nested Chasing process:
 	# If monster is inside the detecting area...
-	if EnemyToPlayer.length() < MaxDistance:
+	if EnemyToPlayer.length() < MaxDistance and !muerto:
 #		print("Dentro del de area de persecucion")
 		# Update chasing area
 		chasing_area = true;
@@ -120,12 +121,13 @@ func _on_ChaseTimer_timeout():
 				else:
 					target_detected = false;
 					
-	else:		
-		chasing_area = false;
-		pararse()
+	else:
+		if !muerto:		
+			chasing_area = false;
+			pararse()
 	
 	# Once chasing parameters are up to date: ¿Target reached?	
-	if translation.distance_to(player.translation) > attackDist:
+	if translation.distance_to(player.translation) > attackDist and !muerto:
 #		print("Voy a por ti!")
 		target_reached=false
 	# Within attack area. Attack! Target reached
@@ -149,7 +151,7 @@ func _on_ChaseTimer_timeout():
 func _physics_process (_delta):
 	
 #	if chasing_area and target_detected and !target_reached :
-	if chase:
+	if chase and !muerto:
 		andar()	
 		# Navmesh Chasing
 		if path_ind < path.size():
@@ -166,7 +168,7 @@ func _physics_process (_delta):
 				move_and_slide(move_vec.normalized() * move_speed, Vector3(1, 0, 0))		
 	
 	# Target reached within chasing area
-	elif target_reached:
+	elif target_reached and !muerto:
 		# Look at player within the attack range
 		$Skeleton.look_at(player.translation,Vector3(0,1,0))
 		$Skeleton.rotation_degrees.y += 180 # ¿?
@@ -184,7 +186,8 @@ func update_path(target_pos):
 	target = target_pos
 	path = nav.get_simple_path(global_transform.origin, target_pos)
 	path_ind = 0
-		
+
+# Animaciones		
 func andar():
 #	$Temporizador.start(andar_temporizador)
 	estado=ESTADOS.andando
@@ -202,5 +205,58 @@ func atacar():
 #	player.take_damage(damage) # Matilda
 	estado=ESTADOS.atacando
 	anim.play("atacar")
-	
 
+func morir_atras():
+#	player.take_damage(damage) # Matilda
+	estado=ESTADOS.muriendo
+	anim.play("morir-atras")	
+
+# Funciones Interfaz
+func take_damage(damageToTake):
+#	print("Matilda: AU!!!")
+	curHp -= damageToTake
+	print("Healthy Point: " + str(curHp))
+	# if our health reaches 0 - die
+	if curHp <= 0:
+		morir_atras()
+		muerto = true;
+
+# Events
+func _input(event):
+	# General Input
+	if event is InputEventMouseButton  and event.button_index == 1 and event.pressed:
+		GlobalVariables.attack = false;
+		GlobalVariables.select = false;
+		GlobalVariables.target_enemy = null;
+
+
+func _on_Shooter_input_event(camera, event, click_position, click_normal, shape_idx):
+	# Select
+	if event is InputEventMouseButton  and event.button_index == 1 and event.pressed and !event.doubleclick:
+		print('Single click: Seleccionar', event)
+		#TODO: Show monsters stats somehow through the HUD
+		GlobalVariables.attack = false;
+		GlobalVariables.select = true;
+		GlobalVariables.move = false;
+		
+		# Update the target enemy (Monster has been selected!)
+		GlobalVariables.target_enemy = get_node(get_path())
+		
+	# Attack
+	elif event is InputEventMouseButton and event.button_index == 1 and event.pressed  and  event.doubleclick :
+		print('double click: Atacar ', event)
+		GlobalVariables.attack = true;
+		GlobalVariables.select = true;
+		GlobalVariables.move = true;
+		# Update the targer enemy  (Monster has been selected to be attacked!)
+		GlobalVariables.target_enemy = get_node(get_path())
+
+	
+# Emitted when mouse pointer enters the monster's shape
+func _on_Shooter_mouse_entered():
+	pass
+#	print("Raton sobre Monstruo")
+
+func _on_Shooter_mouse_exited():
+	pass
+#	print("Raton sale Monstruo")

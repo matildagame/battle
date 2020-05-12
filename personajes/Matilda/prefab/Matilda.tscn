@@ -514,10 +514,10 @@ anims/morir-frente = ExtResource( 6 )
 anims/rotar-derecha = ExtResource( 7 )
 anims/rotar-izquierda = ExtResource( 8 )
 
-[node name="Temporizador" type="Timer" parent="."]
+[node name="AttackTimer" type="Timer" parent="."]
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -5.43069e-08, 0.255348, -0.214263, 0, 0.214263, 0.255348, 0.333333, 4.16015e-08, -3.49078e-08, -0.565427, 0.654307, 0.100511 )
 fov = 50.0
 script = ExtResource( 9 )
-[connection signal="timeout" from="Temporizador" to="." method="_on_Temporizador_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

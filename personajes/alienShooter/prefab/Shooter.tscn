@@ -301,10 +301,11 @@ shape = SubResource( 2 )
 process_mode = 0
 one_shot = true
 
-[node name="RayCastMonster" type="RayCast" parent="."]
+[node name="RayCast" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0399613, 8.02785e-05 )
 enabled = true
 cast_to = Vector3( 0, 0, 1000 )
 collide_with_areas = true
+[connection signal="input_event" from="." to="." method="_on_Shooter_input_event"]
 [connection signal="timeout" from="ChaseTimer" to="." method="_on_ChaseTimer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

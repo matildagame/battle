@@ -10,13 +10,13 @@ onready var player = get_node("/root/WorldMap/Navigation/Matilda")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if tipo == TIPO.VIDA:
-		print("Vida")
+		pass
 		# TODO: MeshInstance, animation, etc..
 	elif tipo == TIPO.MUNICION:
-		print("Municion")
+		pass
 		# TODO: MeshInstance, animation, etc..
 	elif tipo == TIPO.ENERGIA:
-		print("Energia")
+		pass
 		# TODO: MeshInstance, animation, etc..
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
