@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://personajes/Matilda/prefab/Matilda.gd" type="Script" id=1]
 [ext_resource path="res://personajes/Matilda/materiales/cuerpo.material" type="Material" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://personajes/Matilda/animaciones/rotar-derecha.anim" type="Animation" id=7]
 [ext_resource path="res://personajes/Matilda/animaciones/rotar-izquierda.anim" type="Animation" id=8]
 [ext_resource path="res://personajes/Matilda/prefab/Camera.gd" type="Script" id=9]
+[ext_resource path="res://GUIs/HUD/HUD.tscn" type="PackedScene" id=10]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.0523331
@@ -520,4 +521,6 @@ anims/rotar-izquierda = ExtResource( 8 )
 transform = Transform( -5.43069e-08, 0.255348, -0.214263, 0, 0.214263, 0.255348, 0.333333, 4.16015e-08, -3.49078e-08, -0.565427, 0.654307, 0.100511 )
 fov = 50.0
 script = ExtResource( 9 )
+
+[node name="HUD" parent="." instance=ExtResource( 10 )]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

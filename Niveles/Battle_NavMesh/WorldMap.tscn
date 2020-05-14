@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Niveles/Battle_NavMesh/MeshLibraryCustom.tres" type="MeshLibrary" id=1]
 [ext_resource path="res://personajes/Matilda/prefab/Matilda.tscn" type="PackedScene" id=2]
@@ -6,14 +6,18 @@
 [ext_resource path="res://personajes/alienShooter/prefab/Shooter.tscn" type="PackedScene" id=4]
 [ext_resource path="res://personajes/alien/prefab/Monstruo.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Objetos/Caja/prefab/Caja.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Singletons/Global.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Niveles/Battle_NavMesh/Target.gd" type="Script" id=8]
 
 [sub_resource type="NavigationMesh" id=1]
-vertices = PoolVector3Array( -11.7156, 1.16474, -4.6, -10.5156, 1.16474, -4.6, -8.41559, 1.16474, -5.8, -11.7156, 1.16474, -9.7, -8.41559, 1.16474, -5.8, -7.51559, 1.16474, -5.2, -2.41559, 1.16474, -5.2, -2.41559, 1.16474, -9.7, -11.7156, 1.16474, -9.7, -4.81559, 1.16474, 1.7, -4.51559, 1.16474, 2.3, -2.41559, 1.16474, 2.3, -2.41559, 1.16474, -4, -8.41559, 1.16474, -3.4, -10.5156, 1.16474, -4.6, -11.7156, 1.16474, -4.6, -11.7156, 1.16474, 1.7, -2.41559, 1.16474, -4, -7.51559, 1.16474, -4, -8.41559, 1.16474, -3.4, -11.7156, 1.16474, 1.7, -4.81559, 1.16474, 1.7, -2.41559, 1.16474, 2.3, -4.51559, 1.16474, 2.3, -4.81559, 1.16474, 3.2, -2.41559, 1.16474, 8.3, -11.7156, 1.16474, 11.6, -9.31559, 1.16474, 9.5, -9.61559, 1.16474, 8.6, -11.7156, 1.16474, 3.2, -2.41559, 1.16474, 11.6, -2.41559, 1.16474, 9.5, -9.31559, 1.16474, 9.5, -11.7156, 1.16474, 11.6, -4.81559, 1.16474, 3.2, -11.7156, 1.16474, 3.2, -9.61559, 1.16474, 8.6, -2.41559, 1.16474, 8.3 )
-polygons = [ PoolIntArray( 3, 2, 0 ), PoolIntArray( 0, 2, 1 ), PoolIntArray( 8, 7, 4 ), PoolIntArray( 4, 7, 5 ), PoolIntArray( 5, 7, 6 ), PoolIntArray( 12, 11, 9 ), PoolIntArray( 9, 11, 10 ), PoolIntArray( 16, 15, 13 ), PoolIntArray( 13, 15, 14 ), PoolIntArray( 21, 20, 17 ), PoolIntArray( 17, 20, 19 ), PoolIntArray( 17, 19, 18 ), PoolIntArray( 25, 24, 22 ), PoolIntArray( 22, 24, 23 ), PoolIntArray( 29, 28, 26 ), PoolIntArray( 26, 28, 27 ), PoolIntArray( 33, 32, 30 ), PoolIntArray( 30, 32, 31 ), PoolIntArray( 37, 36, 34 ), PoolIntArray( 34, 36, 35 ) ]
+vertices = PoolVector3Array( -11.8256, 1.10095, -4.49, -10.3056, 1.10095, -4.49, -9.92559, 1.10095, -5.06, -11.8256, 1.10095, -9.81, -8.02559, 1.10095, -5.44, -2.13559, 1.10095, -5.06, -2.13559, 1.10095, -9.81, -11.8256, 1.10095, -9.81, -11.8256, 1.10095, -9.81, -9.92559, 1.10095, -5.06, -8.59559, 1.10095, -5.44, -11.8256, 1.10095, -9.81, -8.59559, 1.10095, -5.44, -8.02559, 1.10095, -5.44, -8.02559, 1.10095, -5.44, -7.83559, 1.10095, -5.06, -2.13559, 1.10095, -5.06, -4.98559, 1.10095, 1.97, -4.79559, 1.10095, 2.35, -2.13559, 1.10095, 2.35, -8.59559, 1.10095, -3.73, -10.3056, 1.10095, -4.49, -11.8256, 1.10095, -4.49, -11.8256, 1.10095, 1.97, -2.13559, 1.10095, -4.11, -7.83559, 1.10095, -4.11, -8.02559, 1.10095, -3.73, -4.98559, 1.10095, 1.97, -2.13559, 1.10095, 2.35, -8.59559, 1.10095, -3.73, -11.8256, 1.10095, 1.97, -4.98559, 1.10095, 1.97, -8.02559, 1.10095, -3.73, -11.8256, 1.10095, 8.81, -9.35559, 1.10095, 8.81, -9.16559, 1.10095, 8.24, -11.8256, 1.10095, 2.92, -2.13559, 1.10095, 2.35, -4.79559, 1.10095, 2.35, -4.98559, 1.10095, 2.92, -2.13559, 1.10095, 8.24, -9.16559, 1.10095, 8.24, -2.13559, 1.10095, 8.24, -4.98559, 1.10095, 2.92, -11.8256, 1.10095, 2.92, -8.97559, 2.20095, 8.62, -8.97559, 2.20095, 9, -2.13559, 2.20095, 9, -2.13559, 2.20095, 8.62, -3.65559, 1.10095, 10.71, -3.08559, 1.10095, 10.52, -2.13559, 1.10095, 9.38, -9.16559, 1.10095, 9.38, -2.13559, 1.10095, 11.85, -2.13559, 1.10095, 9.38, -3.08559, 1.10095, 10.52, -2.89559, 1.10095, 10.9, -3.46559, 1.10095, 11.09, -3.65559, 1.10095, 10.71, -9.16559, 1.10095, 9.38, -2.13559, 1.10095, 11.85, -2.89559, 1.10095, 10.9, -3.46559, 1.10095, 11.09, -9.16559, 1.10095, 9.38, -9.35559, 1.10095, 8.81, -11.8256, 1.10095, 8.81, -9.16559, 1.10095, 9.38, -11.8256, 1.10095, 8.81, -11.8256, 1.10095, 11.85, -2.13559, 1.10095, 11.85, -3.46559, 1.10095, 11.09 )
+polygons = [ PoolIntArray( 3, 2, 0 ), PoolIntArray( 0, 2, 1 ), PoolIntArray( 7, 6, 4 ), PoolIntArray( 4, 6, 5 ), PoolIntArray( 10, 9, 8 ), PoolIntArray( 13, 12, 11 ), PoolIntArray( 16, 15, 14 ), PoolIntArray( 19, 18, 17 ), PoolIntArray( 23, 22, 20 ), PoolIntArray( 20, 22, 21 ), PoolIntArray( 28, 27, 24 ), PoolIntArray( 24, 27, 26 ), PoolIntArray( 24, 26, 25 ), PoolIntArray( 32, 31, 29 ), PoolIntArray( 29, 31, 30 ), PoolIntArray( 36, 35, 33 ), PoolIntArray( 33, 35, 34 ), PoolIntArray( 40, 39, 37 ), PoolIntArray( 37, 39, 38 ), PoolIntArray( 44, 43, 41 ), PoolIntArray( 41, 43, 42 ), PoolIntArray( 48, 47, 45 ), PoolIntArray( 45, 47, 46 ), PoolIntArray( 52, 51, 49 ), PoolIntArray( 49, 51, 50 ), PoolIntArray( 56, 55, 53 ), PoolIntArray( 53, 55, 54 ), PoolIntArray( 59, 58, 57 ), PoolIntArray( 62, 61, 60 ), PoolIntArray( 65, 64, 63 ), PoolIntArray( 70, 69, 66 ), PoolIntArray( 66, 69, 67 ), PoolIntArray( 67, 69, 68 ) ]
+cell/size = 0.19
 cell/height = 0.1
 agent/height = 0.49
-agent/radius = 0.23
+agent/radius = 0.1
 agent/max_climb = 0.1
+agent/max_slope = 20.0
 
 [sub_resource type="CubeMesh" id=2]
 size = Vector3( 7, 1, 0.5 )
@@ -32,8 +36,21 @@ data = PoolVector3Array( -3.5, 0.5, 0.25, 3.5, 0.5, 0.25, -3.5, -0.5, 0.25, 3.5,
 [sub_resource type="ConcavePolygonShape" id=7]
 data = PoolVector3Array( 0, 1, 1, 1, -1, 1, -1, -1, 1, 0, 1, -1, -1, -1, -1, 1, -1, -1, 0, 1, 1, 0, 1, -1, 1, -1, 1, 0, 1, -1, 1, -1, -1, 1, -1, 1, 0, 1, -1, 0, 1, 1, -1, -1, -1, 0, 1, 1, -1, -1, 1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
 
+[sub_resource type="PrismMesh" id=8]
+
+[sub_resource type="SpatialMaterial" id=9]
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="CylinderShape" id=10]
+radius = 1.65596
+height = 1.61502
+
 [node name="WorldMap" type="Spatial"]
 script = ExtResource( 3 )
+
+[node name="Controller" parent="." instance=ExtResource( 7 )]
+mode = 0
+mins = 1
 
 [node name="Navigation" type="Navigation" parent="."]
 
@@ -80,15 +97,28 @@ material/0 = null
 [node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Cube3/StaticBody"]
 shape = SubResource( 5 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Navigation/NavigationMeshInstance"]
+[node name="Arrow" type="MeshInstance" parent="Navigation/NavigationMeshInstance"]
 transform = Transform( -1.62921e-07, -1, 0, -1.00907e-07, 1.64399e-14, -0.619366, 0.635149, -1.03479e-07, -1.03479e-07, -9.06259, 1.42032, -4.59251 )
 mesh = SubResource( 6 )
 material/0 = null
 
-[node name="StaticBody" type="StaticBody" parent="Navigation/NavigationMeshInstance/MeshInstance"]
+[node name="StaticBody" type="StaticBody" parent="Navigation/NavigationMeshInstance/Arrow"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/MeshInstance/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Arrow/StaticBody"]
 shape = SubResource( 7 )
+
+[node name="Target" type="Area" parent="Navigation/NavigationMeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.23304, 1.79225, 10.7898 )
+script = ExtResource( 8 )
+
+[node name="MeshIntance" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Target"]
+transform = Transform( 0.112663, 0, 0, 0, 1, 0, 0, 0, 0.0385337, -0.00497437, 0.287172, 0.039979 )
+mesh = SubResource( 8 )
+material/0 = SubResource( 9 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Target"]
+transform = Transform( 0.403143, 0, 0, 0, 0.846031, 0, 0, 0, 0.487168, -0.00497437, 0.287172, 0.00589275 )
+shape = SubResource( 10 )
 
 [node name="Matilda" parent="Navigation" instance=ExtResource( 2 )]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, -7.24561, 1.00306, 0.764132 )
@@ -110,3 +140,4 @@ transform = Transform( 0.0982024, -0.0188276, 0.00134716, 0.0187817, 0.0967519, 
 
 [node name="CajaHP4" parent="." instance=ExtResource( 6 )]
 transform = Transform( 0.0982024, -0.0188276, 0.00134716, 0.0187817, 0.0967519, -0.016921, 0.00188241, 0.0168698, 0.0985488, -4.14278, 1.30453, 4.33361 )
+[connection signal="body_entered" from="Navigation/NavigationMeshInstance/Target" to="Controller" method="_on_Target_body_entered"]

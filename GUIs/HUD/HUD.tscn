@@ -1,0 +1,19 @@
+[gd_scene format=2]
+
+[node name="HUD" type="Control"]
+margin_left = -51.0
+margin_top = -53.0
+margin_right = -2.0
+margin_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+margin_left = 72.0764
+margin_top = 594.05
+margin_right = 112.076
+margin_bottom = 634.05
+__meta__ = {
+"_edit_use_anchors_": false
+}

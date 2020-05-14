@@ -29,6 +29,7 @@ var vel : Vector3 = Vector3()
 # components
 onready var chase_timer = get_node("ChaseTimer")
 onready var attack_timer = get_node("AttackTimer")
+onready var die_timer = get_node("DieTimer")
 onready var anim = get_node("AnimationPlayer")
 onready var ray_cast = get_node("RayCast") 
 onready var player = get_node("/root/WorldMap/Navigation/Matilda") 
@@ -200,6 +201,7 @@ func take_damage(damageToTake):
 	print("Healthy Point: " + str(curHp))
 	# if our health reaches 0 - die
 	if curHp <= 0:
+		die_timer.start();
 		morir_atras()
 
 
@@ -242,3 +244,8 @@ func _on_Monstruo_mouse_entered():
 func _on_Monstruo_mouse_exited():
 	pass
 #	print("Raton sale Monstruo")
+
+
+func _on_DieTimer_timeout():
+	$CollisionShape.queue_free()
+
