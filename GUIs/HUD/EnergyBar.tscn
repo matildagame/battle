@@ -1,0 +1,88 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://GUIs/HUD/assets/barra_energia/energia_20.png" type="Texture" id=1]
+[ext_resource path="res://GUIs/HUD/assets/label_HP_bg.png" type="Texture" id=2]
+[ext_resource path="res://GUIs/HUD/assets/font/Comfortaa-Bold.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://GUIs/HUD/assets/barra_bg.png" type="Texture" id=4]
+[ext_resource path="res://GUIs/HUD/assets/barra_energia/icono_energia.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+extra_spacing_bottom = 2
+font_data = ExtResource( 3 )
+
+[node name="EnergyBar" type="Control"]
+margin_left = 31.1733
+margin_top = 6.00273
+margin_right = 393.173
+margin_bottom = 66.0027
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Count" type="Control" parent="."]
+margin_left = -1.25436
+margin_top = 2.51157
+margin_right = 359.746
+margin_bottom = 56.5116
+rect_min_size = Vector2( 100, 40 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Marco" type="TextureRect" parent="Count"]
+margin_left = 98.7523
+margin_top = 4.23419
+margin_right = 1382.75
+margin_bottom = 222.234
+rect_scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 4 )
+
+[node name="Energy" type="TextureRect" parent="Count/Marco"]
+margin_left = 75.9061
+margin_top = 29.9811
+margin_right = 1254.91
+margin_bottom = 200.981
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="NinePatchRect" parent="Count"]
+margin_right = 100.0
+margin_bottom = 53.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="TextureRect" parent="Count/Background"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 13.1803
+margin_top = -17.964
+margin_right = 343.18
+margin_bottom = 312.036
+rect_scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 5 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Number" type="Label" parent="Count/Background"]
+anchor_left = 2.321
+anchor_top = 1.745
+anchor_right = 2.321
+anchor_bottom = 1.745
+margin_left = -180.949
+margin_top = -82.5983
+margin_right = -144.949
+margin_bottom = -45.5983
+custom_fonts/font = SubResource( 1 )
+text = "20"
+align = 2
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
