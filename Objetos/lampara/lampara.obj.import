@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/lampara.obj-48fc2688827f11d6d1f705fa9ad2621e.mesh"
+
+[deps]
+
+files=[ "res://.import/lampara.obj-48fc2688827f11d6d1f705fa9ad2621e.mesh" ]
+
+source_file="res://Objetos/lampara/lampara.obj"
+dest_files=[ "res://.import/lampara.obj-48fc2688827f11d6d1f705fa9ad2621e.mesh", "res://.import/lampara.obj-48fc2688827f11d6d1f705fa9ad2621e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

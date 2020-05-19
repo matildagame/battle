@@ -1,5 +1,14 @@
 extends KinematicBody
 
+# Name/id
+export var alias : String="Matilda"
+
+# if this is a remote character, its value is "false"
+export var is_local: bool =false
+
+# Signals: These are our events
+signal created(object_,name_)
+
 # Health points
 export var maxHp : int = 100
 var curHp : int = maxHp
@@ -20,6 +29,10 @@ var path = []
 var path_ind = 0
 const move_speed = 3
 onready var nav = get_parent()
+
+# Hair tone:
+# enum HAIR_COLOR {violet,green,white,black}
+export(int,"violet","yellow","cyan","grey","red","green") var hair_color
 
 # Get components
 onready var anim = get_node("AnimationPlayer")
@@ -58,26 +71,49 @@ enum ESTADOS {parado,andando,muriendo,bailando,rotando_derecha,rotando_izquierda
 # Estado Inicial
 var estado=ESTADOS.parado
 
-func _ready():
-	
+# Just ot instantiate and change parameters afterwards:
+func init(vida_100_, maxHP_ ,energia_100_,maxEp_,maxAp_,hair_color_,alias_,is_local_):
 	# Set Inicial Stats
 	# Health
-	life_bar.set_texture(vida_100)
-	life_count.text = str(maxHp)
+	life_bar.set_texture(vida_100_)
+	life_count.text = str(maxHP_)
 	# Energy
-	energy_bar.set_texture(energia_100)
-	energy_count.text = str(maxEp)
+	energy_bar.set_texture(energia_100_)
+	energy_count.text = str(maxEp_)
 	# Ammunition
-	energy_count.text = str(maxAp)
+	energy_count.text = str(maxAp_)
 	
+	alias=alias_
 	
-	BulletPosition = $Skeleton # Ojo, esto tiene que ser donde esté el arma!
+	# Set hair tone:
+	set_hair_tone(hair_color_)
+	
+	is_local=is_local_
+	if is_local:
+		# Let's say it's happening
+		emit_signal("created",self,alias)
+	
+func _ready():
+	
+	init(vida_100,maxHp,energia_100,maxEp,maxAp,hair_color,alias,is_local)
 	
 	add_to_group("units")
 	add_child(LineDrawer)
 	
 	attack_timer.wait_time = attackRate
 	attack_timer.start()
+	BulletPosition = $Skeleton # Ojo, esto tiene que ser donde esté el arma!
+	
+# set the hair color, from a set of base materials
+func set_hair_tone(tone):
+	var hair_texture=["basepelo.png",
+	"basepelo_amarillo.png", 
+	"basepelo_azul.png", 
+	"basepelo_gris.png", 
+	"basepelo_rojo.png",
+	"basepelo_verde.png"]
+	
+	$Skeleton/Pelo.get_surface_material(0).albedo_texture=load("res://personajes/Matilda/materiales/"+hair_texture[tone])
 	
 func _on_AttackTimer_timeout():
 	
@@ -252,8 +288,8 @@ func pararse():
 	anim.play("default")
 
 
-func draw_path(path):
-	for i in range(len(path)):
-		if i<len(path)-1:
-			LineDrawer.DrawLine(path[i],path[i+1],Color(1, 0, 0),5)
+func draw_path(path_):
+	for i in range(len(path_)):
+		if i<len(path_)-1:
+			LineDrawer.DrawLine(path_[i],path_[i+1],Color(1, 0, 0),5)
 			
