@@ -1,11 +1,12 @@
 extends Area
 
-var damage = 1;
+var damage = 10;
 
 export(float) var PROJECTILE_SPEED = 0.05;
 var direction 
 
-onready var player = get_node("/root/WorldMap/Navigation/Matilda") 
+#onready var player = get_node("/root/WorldMap/Navigation/Matilda") # World Map 
+onready var player = get_node("/root/Laberinto/Navigation/Matilda") # Laberinto
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

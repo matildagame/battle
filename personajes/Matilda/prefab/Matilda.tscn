@@ -518,7 +518,7 @@ anims/rotar-izquierda = ExtResource( 8 )
 [node name="AttackTimer" type="Timer" parent="."]
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( -5.43069e-08, 0.255348, -0.214263, 0, 0.214263, 0.255348, 0.333333, 4.16015e-08, -3.49078e-08, -0.565427, 0.654307, 0.100511 )
+transform = Transform( -5.25866e-08, 0.300761, -0.143714, 1.35607e-08, 0.143714, 0.300761, 0.333333, 4.16015e-08, -3.49079e-08, -0.565427, 1.05843, 0.100511 )
 fov = 50.0
 script = ExtResource( 9 )
 

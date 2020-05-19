@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="battle2"
-run/main_scene="res://Niveles/Battle_NavMesh/WorldMap.tscn"
+run/main_scene="res://Niveles/Laberinto/Laberinto.tscn"
 config/icon="res://icon.png"
 
 [autoload]

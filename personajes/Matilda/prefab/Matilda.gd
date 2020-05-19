@@ -1,13 +1,13 @@
 extends KinematicBody
 
 # Health points
-export var maxHp : int = 3
+export var maxHp : int = 100
 var curHp : int = maxHp
 # Energy points
-export var maxEp : int = 3
+export var maxEp : int = 100
 var curEp : int = maxEp
 # Ammunition points
-export var maxAp : int = 3
+export var maxAp : int = 100
 var curAp : int = maxAp
 
 # attacking
@@ -18,12 +18,31 @@ var attackRate : float = 1.5
 # Navigation variables
 var path = []
 var path_ind = 0
-const move_speed = 2
+const move_speed = 3
 onready var nav = get_parent()
 
 # Get components
 onready var anim = get_node("AnimationPlayer")
 onready var attack_timer = get_node("AttackTimer")
+# HUD Components
+# Healthy points components
+onready var life_bar = get_node("HUD/TopStats/LifeBar/Count/Marco/Life")
+onready var life_count = get_node("HUD/TopStats/LifeBar/Count/Background/Number")
+const vida_20 = preload("res://GUIs/HUD/assets/barra_vida/vida_20.png")
+const vida_40 = preload("res://GUIs/HUD/assets/barra_vida/vida_40.png")
+const vida_60 = preload("res://GUIs/HUD/assets/barra_vida/vida_60.png")
+const vida_80 = preload("res://GUIs/HUD/assets/barra_vida/vida_80.png")
+const vida_100 = preload("res://GUIs/HUD/assets/barra_vida/vida_100.png")
+# Energy points components
+onready var energy_bar = get_node("HUD/TopStats/EnergyBar/Count/Marco/Energy")
+onready var energy_count = get_node("HUD/TopStats/EnergyBar/Count/Background/Number")
+const energia_20 = preload("res://GUIs/HUD/assets/barra_energia/energia_20.png")
+const energia_40 = preload("res://GUIs/HUD/assets/barra_energia/energia_40.png")
+const energia_60 = preload("res://GUIs/HUD/assets/barra_energia/energia_60.png")
+const energia_80 = preload("res://GUIs/HUD/assets/barra_energia/energia_80.png")
+const energia_100 = preload("res://GUIs/HUD/assets/barra_energia/energia_100.png")
+# Ammunition points components
+onready var ammuntion_count = get_node("HUD/TopStats/AmmunitionBar/Count/Background/Number")
 
 # Scene resources
 const BULLET = preload("res://personajes/Matilda/prefab/MatildaBullet.tscn")
@@ -40,7 +59,18 @@ enum ESTADOS {parado,andando,muriendo,bailando,rotando_derecha,rotando_izquierda
 var estado=ESTADOS.parado
 
 func _ready():
-
+	
+	# Set Inicial Stats
+	# Health
+	life_bar.set_texture(vida_100)
+	life_count.text = str(maxHp)
+	# Energy
+	energy_bar.set_texture(energia_100)
+	energy_count.text = str(maxEp)
+	# Ammunition
+	energy_count.text = str(maxAp)
+	
+	
 	BulletPosition = $Skeleton # Ojo, esto tiene que ser donde esté el arma!
 	
 	add_to_group("units")
@@ -58,7 +88,11 @@ func _on_AttackTimer_timeout():
 			if GlobalVariables.target_enemy.curHp > 0:
 				print("Matilda: Toma!")
 				# Instanciate and fire a bullet
-				fire()
+				if curAp > 0:
+					fire()
+					curAp-=1;
+					ammuntion_count.text = str(curAp)
+					
 			
 func fire():
 	var bullet = BULLET.instance()
@@ -141,13 +175,57 @@ func take_damage(damageToTake):
 	curHp -= damageToTake
 	print("Healthy Point: " + str(curHp))
 	# if our health reaches 0 - die
+	
+	if curHp == 100:
+		life_bar.set_texture(vida_100)
+		life_count.text = str(curHp)
+	elif curHp >= 80 and curHp < 100:
+		life_bar.set_texture(vida_80)
+		life_count.text = str(curHp)
+	elif curHp >= 60 and curHp < 80:
+		life_bar.set_texture(vida_60)
+		life_count.text = str(curHp)	
+	elif curHp >= 40 and curHp < 60:
+		life_bar.set_texture(vida_40)
+		life_count.text = str(curHp)
+	elif curHp >= 20 and curHp < 40:
+		life_bar.set_texture(vida_20)
+		life_count.text = str(curHp)
+	elif curHp < 20:
+		life_bar.set_texture(null)
+		life_count.text = str(curHp)
+		if(curHp<0):
+			life_count.text = '0'
+	
 	if curHp <= 0:
 		morir();
+		muerta = true;
 				
 func take_health(healthToTake):
 	if curHp < maxHp:
 		curHp += healthToTake
 	print("Healthy Point: " + str(curHp))	
+	
+	# Update HUD
+	if curHp >= 100:
+		life_bar.set_texture(vida_100)
+		life_count.text = str(curHp)
+	elif curHp >= 80 and curHp < 100:
+		life_bar.set_texture(vida_80)
+		life_count.text = str(curHp)
+	elif curHp >= 60 and curHp < 80:
+		life_bar.set_texture(vida_60)
+		life_count.text = str(curHp)	
+	elif curHp >= 40 and curHp < 60:
+		life_bar.set_texture(vida_40)
+		life_count.text = str(curHp)
+	elif curHp >= 20 and curHp < 40:
+		life_bar.set_texture(vida_20)
+		life_count.text = str(curHp)
+	elif curHp < 20:
+		life_bar.set_texture(null)
+		life_count.text = str(curHp)
+
 	
 func take_energy(energyToTake):
 	if curEp < maxEp:
@@ -178,7 +256,4 @@ func draw_path(path):
 	for i in range(len(path)):
 		if i<len(path)-1:
 			LineDrawer.DrawLine(path[i],path[i+1],Color(1, 0, 0),5)
-	
-
-
-
+			

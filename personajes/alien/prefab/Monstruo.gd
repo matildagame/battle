@@ -6,7 +6,7 @@ export var maxHp : int = 3
 var curHp = maxHp
  
 # attacking
-var damage : int = 1
+var damage : int = 20
 var attackDist : float = 0.5
 var attackRate : float = 2.67 # Update un animation time
 
@@ -15,7 +15,7 @@ var chaseRate : float = 0.1
 var MaxDistance = 5
  
 # physics
-var move_speed : float = 1
+var move_speed : float = 1.5
 
 # Navmesh
 var path = []
@@ -32,7 +32,8 @@ onready var attack_timer = get_node("AttackTimer")
 onready var die_timer = get_node("DieTimer")
 onready var anim = get_node("AnimationPlayer")
 onready var ray_cast = get_node("RayCast") 
-onready var player = get_node("/root/WorldMap/Navigation/Matilda") 
+#onready var player = get_node("/root/WorldMap/Navigation/Matilda") # World Map 
+onready var player = get_node("/root/Laberinto/Navigation/Matilda") # Laberinto
 
 # Aux variables
 var muerto = false
@@ -45,7 +46,7 @@ onready var attacking_area = false
 var EnemyToPlayer # Vector pointing to player
 var AngleToPlayer # Angle to Player
 var forward  # Monter's forward direction
-var FOV = 90 # Monster's Filed Of Vision
+var FOV = 180 # Monster's Filed Of Vision
 
 # Estados Animaciones
 enum ESTADOS {parado,andando,atacando,muriendo,bailando,rotando_derecha,rotando_izquierda}

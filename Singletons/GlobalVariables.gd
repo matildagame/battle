@@ -4,7 +4,8 @@ extends Node
 # It also contains some functions to determine the game proccedures...
 
 # Reference to Player
-onready var player = get_node("/root/WorldMap/Navigation/Matilda") 
+#onready var player = get_node("/root/WorldMap/Navigation/Matilda") # World Map 
+onready var player = get_node("/root/Laberinto/Navigation/Matilda") # Laberinto
 
 # -----------------------------------------------------------------------------
 # GAME PARAMETERS

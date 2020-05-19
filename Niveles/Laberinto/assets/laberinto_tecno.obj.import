@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/laberinto_tecno.obj-18c71097063f5410cd7960c8a10417ac.mesh"
+
+[deps]
+
+files=[ "res://.import/laberinto_tecno.obj-18c71097063f5410cd7960c8a10417ac.mesh" ]
+
+source_file="res://Niveles/Laberinto/assets/laberinto_tecno.obj"
+dest_files=[ "res://.import/laberinto_tecno.obj-18c71097063f5410cd7960c8a10417ac.mesh", "res://.import/laberinto_tecno.obj-18c71097063f5410cd7960c8a10417ac.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

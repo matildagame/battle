@@ -5,17 +5,14 @@ const ray_length = 1000
 onready var player = get_parent()
 var offset : Vector3
 
-export var distance = -4
-export var heigth = 3
-
+export var distance = -10
+export var heigth = 9
 
 
 func _init():
 	# Make parent independent
 	set_as_toplevel(true)
-	
-
-	
+		
 func _ready():
 	offset = get_global_transform().origin
 	offset.x = distance

@@ -121,7 +121,7 @@ transform = Transform( 0.403143, 0, 0, 0, 0.846031, 0, 0, 0, 0.487168, -0.004974
 shape = SubResource( 10 )
 
 [node name="Matilda" parent="Navigation" instance=ExtResource( 2 )]
-transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, -7.24561, 1.00306, 0.764132 )
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, -6.99206, 1.05641, -0.428119 )
 
 [node name="Shooter" parent="Navigation" instance=ExtResource( 4 )]
 transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, -4.10841, 1.09779, -7.58464 )
@@ -131,13 +131,17 @@ transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, -6.8916, 1.19928, 5.64469 )
 
 [node name="CajaHP" parent="." instance=ExtResource( 6 )]
 transform = Transform( 0.0982024, -0.0188276, 0.00134716, 0.0187817, 0.0967519, -0.016921, 0.00188241, 0.0168698, 0.0985488, -3.2221, 1.30453, 0 )
+quantity = 20
 
 [node name="CajaHP2" parent="." instance=ExtResource( 6 )]
 transform = Transform( 0.0982024, -0.0188276, 0.00134716, 0.0187817, 0.0967519, -0.016921, 0.00188241, 0.0168698, 0.0985488, -10.5549, 1.30453, -2.33083 )
+quantity = 20
 
 [node name="CajaHP3" parent="." instance=ExtResource( 6 )]
 transform = Transform( 0.0982024, -0.0188276, 0.00134716, 0.0187817, 0.0967519, -0.016921, 0.00188241, 0.0168698, 0.0985488, -10.8191, 1.30453, -7.78652 )
+quantity = 20
 
 [node name="CajaHP4" parent="." instance=ExtResource( 6 )]
 transform = Transform( 0.0982024, -0.0188276, 0.00134716, 0.0187817, 0.0967519, -0.016921, 0.00188241, 0.0168698, 0.0985488, -4.14278, 1.30453, 4.33361 )
+quantity = 20
 [connection signal="body_entered" from="Navigation/NavigationMeshInstance/Target" to="Controller" method="_on_Target_body_entered"]

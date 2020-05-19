@@ -1,83 +1,110 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://GUIs/HUD/assets/ajustes.png" type="Texture" id=1]
+[ext_resource path="res://GUIs/HUD/assets/Items/ajustes.png" type="Texture" id=1]
 [ext_resource path="res://GUIs/HUD/LifeBar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://GUIs/HUD/EnergyBar.tscn" type="PackedScene" id=3]
 [ext_resource path="res://GUIs/HUD/assets/Items/pocket.png" type="Texture" id=4]
 [ext_resource path="res://GUIs/HUD/assets/Items/chat.png" type="Texture" id=5]
+[ext_resource path="res://GUIs/HUD/assets/Items/pistola.png" type="Texture" id=6]
+[ext_resource path="res://GUIs/HUD/AmmunitionBar.tscn" type="PackedScene" id=7]
 
-[node name="HUD" type="Control"]
-margin_left = -88.0
-margin_top = -61.0
-margin_right = -48.0
-margin_bottom = -33.0
+[node name="HUD" type="Node"]
+
+[node name="TopStats" type="Control" parent="."]
+margin_left = 13.6306
+margin_top = 6.60847
+margin_right = 644.631
+margin_bottom = 56.6085
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StatsBars" type="Control" parent="."]
-margin_left = 125.0
-margin_top = 81.0
-margin_right = 1107.0
-margin_bottom = 131.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="LifeBar" parent="TopStats" instance=ExtResource( 2 )]
+margin_left = -2.52643
+margin_top = 3.85445
+margin_right = 360.474
+margin_bottom = 61.8544
+rect_scale = Vector2( 0.85, 0.85 )
 
-[node name="TextureButton" type="TextureButton" parent="StatsBars"]
-margin_left = 920.806
-margin_top = -4.67526
-margin_right = 1429.81
-margin_bottom = 503.325
-rect_scale = Vector2( 0.09, 0.09 )
+[node name="EnergyBar" parent="TopStats" instance=ExtResource( 3 )]
+margin_left = 310.973
+margin_top = 5.05273
+margin_right = 672.973
+margin_bottom = 65.0527
+rect_scale = Vector2( 0.85, 0.85 )
+
+[node name="AmmunitionBar" parent="TopStats" instance=ExtResource( 7 )]
+margin_left = 626.684
+margin_top = 5.29804
+margin_right = 988.684
+margin_bottom = 65.298
+rect_scale = Vector2( 0.85, 0.85 )
+
+[node name="Settings" type="TextureButton" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -56.3765
+margin_top = 14.8786
+margin_right = 452.624
+margin_bottom = 522.879
+rect_scale = Vector2( 0.085, 0.085 )
 texture_normal = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LifeBar" parent="StatsBars" instance=ExtResource( 2 )]
-margin_left = -23.3175
-margin_top = -11.9943
-margin_right = 338.682
-margin_bottom = 47.0057
-
-[node name="EnergyBar" parent="StatsBars" instance=ExtResource( 3 )]
-margin_left = 341.423
-margin_top = -12.4925
-margin_right = 703.422
-margin_bottom = 47.5074
-
 [node name="Bolsillo" type="Control" parent="."]
-margin_left = 985.0
-margin_top = 552.0
-margin_right = 1081.0
-margin_bottom = 640.0
-
-[node name="TextureRect" type="TextureRect" parent="Bolsillo"]
-margin_left = -22.3213
-margin_top = -12.231
-margin_right = 1853.68
-margin_bottom = 1503.77
-rect_scale = Vector2( 0.07, 0.07 )
-texture = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Control" type="Control" parent="."]
-margin_left = 91.5015
-margin_top = 599.847
-margin_right = 357.501
-margin_bottom = 649.847
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -276.424
+margin_top = -225.568
+margin_right = -95.4238
+margin_bottom = -77.5679
+rect_scale = Vector2( 1.5, 1.5 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="Control"]
-margin_left = 15.9351
-margin_top = 6.32031
-margin_right = 2307.94
-margin_bottom = 388.32
-rect_scale = Vector2( 0.1, 0.1 )
+[node name="Bolsillo" type="TextureRect" parent="Bolsillo"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -165.778
+margin_top = -136.399
+margin_right = 1710.22
+margin_bottom = 1379.6
+rect_scale = Vector2( 0.08, 0.08 )
+texture = ExtResource( 4 )
+
+[node name="Objeto" type="TextureRect" parent="Bolsillo"]
+margin_left = 67.248
+margin_top = 46.2036
+margin_right = 1206.25
+margin_bottom = 1049.2
+rect_scale = Vector2( 0.06, 0.06 )
+texture = ExtResource( 6 )
+
+[node name="Chat" type="Control" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 13.0441
+margin_top = -80.5073
+margin_right = 387.044
+margin_bottom = -19.5073
+rect_scale = Vector2( 1.2, 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Chat"]
+margin_left = 11.0
+margin_top = -1.0
+margin_right = 2433.0
+margin_bottom = 388.0
+rect_scale = Vector2( 0.15, 0.15 )
 texture = ExtResource( 5 )

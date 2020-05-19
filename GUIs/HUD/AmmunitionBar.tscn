@@ -31,6 +31,7 @@ __meta__ = {
 }
 
 [node name="Marco" type="TextureRect" parent="Count"]
+visible = false
 margin_left = 98.7523
 margin_top = 4.23419
 margin_right = 1382.75
@@ -59,9 +60,9 @@ __meta__ = {
 [node name="Title" type="TextureRect" parent="Count/Background"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = 13.1803
+margin_left = 10.1803
 margin_top = -17.964
-margin_right = 343.18
+margin_right = 340.18
 margin_bottom = 312.036
 rect_scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 1 )
@@ -75,12 +76,12 @@ anchor_left = 2.321
 anchor_top = 1.745
 anchor_right = 2.321
 anchor_bottom = 1.745
-margin_left = -180.949
+margin_left = -183.949
 margin_top = -82.5983
-margin_right = -144.949
+margin_right = -137.949
 margin_bottom = -45.5983
 custom_fonts/font = SubResource( 1 )
-text = "20"
+text = "100"
 align = 2
 valign = 2
 __meta__ = {

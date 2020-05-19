@@ -5,7 +5,8 @@ export(TIPO) var tipo = TIPO.VIDA
 export var quantity = 1
 
 # Referencia a matilda
-onready var player = get_node("/root/WorldMap/Navigation/Matilda") 
+#onready var player = get_node("/root/WorldMap/Navigation/Matilda") # World Map 
+onready var player = get_node("/root/Laberinto/Navigation/Matilda") # Laberinto
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
