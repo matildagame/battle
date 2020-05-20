@@ -21,13 +21,23 @@ class Mensaje {
 
     
     enum ERROR {noError};
-    enum MessageType {invalidMessage,libraryConnectionRequest,libraryChatMessage}
+    enum MessageType {invalidMessage,libraryConnectionRequest,libraryChatMessage,
+	libraryConnectionReply,
+	rpcSpawn,rpcUpdatePosition,rpcUpdateValue,
+	serverConnectionReply, serverConnectionRequest
+    }
     
     // Campos del mensaje:
     MessageType tipo=MessageType.invalidMessage;
     String aplicacion="unknown";
     String remitente="";
     String mensaje="";
+    
+    String nombre="";
+    String objeto="";
+    
+    String servidor="localhost";
+    int puerto=9090;
     
     Mensaje(){
         
@@ -54,6 +64,14 @@ class Mensaje {
             tipo=MessageType.libraryChatMessage;
             remitente=campos[1];
             mensaje=campos[2];        
+        } else if(campos[0].compareTo("Spawn")==0){
+         tipo=MessageType.rpcSpawn;
+            objeto=campos[1];
+            nombre=campos[2]; 
+        }else if(campos[0].compareTo("CONNECT")==0){
+            tipo=MessageType.serverConnectionRequest;
+            servidor=campos[1];
+            puerto=Integer.parseInt(campos[2]); 
         }
         
         return error;

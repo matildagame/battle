@@ -19,26 +19,61 @@ import java.util.logging.Logger;
  * @author matilda
  */
 public class MatildaLibClient {
+    
+    int libPort=9998;
 
            BufferedReader in=null;
         PrintWriter out=null;
+
+    private void sendConnectionReplyRefused(int error) {
+        out.println("CONNECT:"+error);
+    }
+
+    private void sendConnectionReplyOk() {
+        out.println("CONNECT:Ok");
+    }
     
     enum Estados {inicial, inicializado};
     
     Estados estado=Estados.inicial;
     
-    public static void main(String[] args){
-        int libPort=9998;
-        
-
-        
-        
-        // Let's create the server
-        new MatildaLibClient(libPort);
+    // to be assigned by the library user:
+    ConnectionManager connectionManager=null;
+    GameObjectManager gameObjectManager=null;
+    ChatManager chatManager=null;
+    
+    public void setConnectionManager(ConnectionManager cm){
+        connectionManager=cm;
     }
 
-    private MatildaLibClient(int libPort) {
-        ServerSocket serverSocket;
+    public GameObjectManager getGameObjectManager() {
+        return gameObjectManager;
+    }
+
+    public void setGameObjectManager(GameObjectManager gameObjectManager) {
+        this.gameObjectManager = gameObjectManager;
+    }
+
+    public ChatManager getChatManager() {
+        return chatManager;
+    }
+
+    public void setChatManager(ChatManager chatManager) {
+        this.chatManager = chatManager;
+    }
+    
+    
+    
+   
+
+    public MatildaLibClient(int libPort) {
+      this.libPort=libPort;
+    }
+    
+    public int init(){
+        int error=0;
+        
+          ServerSocket serverSocket;
         try {
             serverSocket = new ServerSocket(libPort);
         
@@ -52,6 +87,8 @@ public class MatildaLibClient {
         } catch (IOException ex) {
             Logger.getLogger(MatildaLibClient.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        return error;
     }
 
     /**
@@ -61,6 +98,7 @@ public class MatildaLibClient {
     private void crearProcesador(Socket socket) {
 
         boolean salir=false;
+        int error=0;
                     
         try {
 
@@ -70,6 +108,8 @@ public class MatildaLibClient {
             // Let's read messages form Matilda.gd:
             do {
                 Mensaje mensaje=new Mensaje(in);
+                
+                System.out.print("Recibido mensaje Tipo: "+mensaje.getType());
                 
                 switch(estado){
                     case inicial:
@@ -83,6 +123,24 @@ public class MatildaLibClient {
                         }
                         break;
                     case inicializado:
+                        switch(mensaje.getType()){
+                            case rpcSpawn:
+                                System.out.println("Llega un Spawn...");
+                                break;
+                            case serverConnectionRequest:
+                                 System.out.println("Llega una solicitud de comenzar conexión..");
+                                
+                                 
+                                error=connectionManager.connect(mensaje.servidor,mensaje.puerto);
+                                if(error!=0){
+                                   System.out.println("No se puedo conectar al servidor..."); 
+                                   sendConnectionReplyRefused(error);
+                                } else {
+                                    sendConnectionReplyOk();
+                                    // estado=Estados.inicializado_servidor
+                                }
+                                break;
+                        }
 //                          if (mensaje.getType()==Mensaje.MessageType.libraryChatMessage){
 //                            System.out.println("Chat > "+mensaje.getMessage());
 //                    

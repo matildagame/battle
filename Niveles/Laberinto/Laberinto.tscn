@@ -125,3 +125,4 @@ transform = Transform( 15, 0, 0, 0, 15, 0, 0, 0, 15, -3.78475, 0, -16.9464 )
 
 [node name="Lampara" parent="Lamparas" instance=ExtResource( 9 )]
 transform = Transform( -3.25841e-08, 0, -0.2, 0, 0.2, 0, 0.2, 0, -3.25841e-08, -5.27481, 1.23398, -9.0731 )
+[connection signal="created" from="Navigation/Matilda" to="MatildaLib" method="_on_Matilda_created"]
