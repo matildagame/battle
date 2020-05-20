@@ -1,9 +1,8 @@
 extends KinematicBody
 
 # stats (Vida de los enemigos)
-var curHp : int = 3
-var maxHp : int = 3
- 
+export var maxHp : int = 2
+var curHp = maxHp
 # attacking
 var damage : int = 1
 var attackDist : float = 3
@@ -37,6 +36,10 @@ onready var player = get_node("/root/Laberinto/Navigation/Matilda") # Laberinto
 # Scene resources
 const BULLET = preload("res://personajes/alienShooter/prefab/Bullet.tscn")
 var BulletPosition # Where the bullet is gonna be instaciated
+
+# Materials
+const selected = preload("res://personajes/alienShooter/material/AlienSeleccionado.material")
+const not_selected = preload("res://personajes/alienShooter/material/Alien.material")
 
 # Aux variables
 var muerto = false
@@ -231,6 +234,9 @@ func _input(event):
 		GlobalVariables.attack = false;
 		GlobalVariables.select = false;
 		GlobalVariables.target_enemy = null;
+		
+		$Skeleton/alienMesh.set_surface_material(0,not_selected)
+		
 
 
 func _on_Shooter_input_event(camera, event, click_position, click_normal, shape_idx):
@@ -245,6 +251,8 @@ func _on_Shooter_input_event(camera, event, click_position, click_normal, shape_
 		# Update the target enemy (Monster has been selected!)
 		GlobalVariables.target_enemy = get_node(get_path())
 		
+		$Skeleton/alienMesh.set_surface_material(0,selected)
+		
 	# Attack
 	elif event is InputEventMouseButton and event.button_index == 1 and event.pressed  and  event.doubleclick :
 		print('double click: Atacar ', event)
@@ -253,6 +261,8 @@ func _on_Shooter_input_event(camera, event, click_position, click_normal, shape_
 		GlobalVariables.move = true;
 		# Update the targer enemy  (Monster has been selected to be attacked!)
 		GlobalVariables.target_enemy = get_node(get_path())
+		
+		$Skeleton/alienMesh.set_surface_material(0,selected)
 
 	
 # Emitted when mouse pointer enters the monster's shape

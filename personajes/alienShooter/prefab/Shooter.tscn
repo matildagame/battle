@@ -278,7 +278,7 @@ bones/48/rest = Transform( -0.979136, 0.096921, -0.178605, -0.181787, -0.024995,
 bones/48/enabled = true
 bones/48/bound_children = [  ]
 
-[node name="alien-uvdecimated_alien-uv001" type="MeshInstance" parent="Skeleton"]
+[node name="alienMesh" type="MeshInstance" parent="Skeleton"]
 mesh = SubResource( 1 )
 material/0 = ExtResource( 2 )
 

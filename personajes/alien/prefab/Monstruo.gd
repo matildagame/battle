@@ -2,7 +2,7 @@ extends KinematicBody
 
 # stats (Vida de los enemigos)
 
-export var maxHp : int = 3
+export var maxHp : int = 2
 var curHp = maxHp
  
 # attacking
@@ -34,6 +34,10 @@ onready var anim = get_node("AnimationPlayer")
 onready var ray_cast = get_node("RayCast") 
 #onready var player = get_node("/root/WorldMap/Navigation/Matilda") # World Map 
 onready var player = get_node("/root/Laberinto/Navigation/Matilda") # Laberinto
+
+# Materials
+const selected = preload("res://personajes/alien/material/AlienSeleccionado.material")
+const not_selected = preload("res://personajes/alien/material/Alien.material")
 
 # Aux variables
 var muerto = false
@@ -213,6 +217,8 @@ func _input(event):
 		GlobalVariables.attack = false;
 		GlobalVariables.select = false;
 		GlobalVariables.target_enemy = null;
+		
+		$Skeleton/alienMesh.set_surface_material(0,not_selected)
 
 
 func _on_Monstruo_input_event(camera, event, click_position, click_normal, shape_idx):
@@ -227,6 +233,8 @@ func _on_Monstruo_input_event(camera, event, click_position, click_normal, shape
 		# Update the target enemy (Monster has been selected!)
 		GlobalVariables.target_enemy = get_node(get_path())
 		
+		$Skeleton/alienMesh.set_surface_material(0,selected)
+		
 	# Attack
 	elif event is InputEventMouseButton and event.button_index == 1 and event.pressed  and  event.doubleclick :
 		print('double click: Atacar ', event)
@@ -235,6 +243,8 @@ func _on_Monstruo_input_event(camera, event, click_position, click_normal, shape
 		GlobalVariables.move = true;
 		# Update the targer enemy  (Monster has been selected to be attacked!)
 		GlobalVariables.target_enemy = get_node(get_path())
+		
+		$Skeleton/alienMesh.set_surface_material(0,selected)
 
 	
 # Emitted when mouse pointer enters the monster's shape
@@ -249,4 +259,3 @@ func _on_Monstruo_mouse_exited():
 
 func _on_DieTimer_timeout():
 	$CollisionShape.queue_free()
-

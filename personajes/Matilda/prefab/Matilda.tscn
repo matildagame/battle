@@ -286,7 +286,7 @@ tracks/33/keys = PoolRealArray( 0, 1, 0, -2.79397e-09, 4.65661e-10, 0.0140523, -
 
 [sub_resource type="Environment" id=5]
 ambient_light_color = Color( 0.109804, 0.109804, 0.109804, 1 )
-ambient_light_energy = 0.0
+ambient_light_energy = 11.26
 
 [node name="Matilda" type="KinematicBody"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
