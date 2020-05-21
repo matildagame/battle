@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://personajes/Matilda/prefab/Matilda.gd" type="Script" id=1]
 [ext_resource path="res://personajes/Matilda/materiales/cuerpo.material" type="Material" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://personajes/Matilda/prefab/Camera.gd" type="Script" id=9]
 [ext_resource path="res://GUIs/HUD/HUD.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Objetos/linterna/Linterna.tscn" type="PackedScene" id=11]
+[ext_resource path="res://GUIs/signaling/Identificador.tscn" type="PackedScene" id=12]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.0523331
@@ -288,6 +289,9 @@ tracks/33/keys = PoolRealArray( 0, 1, 0, -2.79397e-09, 4.65661e-10, 0.0140523, -
 ambient_light_color = Color( 0.109804, 0.109804, 0.109804, 1 )
 ambient_light_energy = 11.26
 
+[sub_resource type="ViewportTexture" id=6]
+viewport_path = NodePath("Viewport")
+
 [node name="Matilda" type="KinematicBody"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
 script = ExtResource( 1 )
@@ -536,4 +540,8 @@ transform = Transform( 0.008, 0, 0, 0, 0.008, 0, 0, 0, 0.008, -0.0161467, 0.1318
 
 [node name="BulletPosition" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0337904, 0.0914163, 0.0168049 )
+
+[node name="Identificador" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19847, 0 )
+texture = SubResource( 6 )
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
