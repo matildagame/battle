@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Singletons/Global.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Niveles/Laberinto/assets/laberinto_tecno.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://personajes/Matilda/prefab/Matilda.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objetos/Caja/prefab/Caja.tscn" type="PackedScene" id=4]
 [ext_resource path="res://personajes/alienShooter/prefab/Shooter.tscn" type="PackedScene" id=5]
+[ext_resource path="res://personajes/alien/prefab/Monstruo.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Niveles/Laberinto/assets/suelo_negro.material" type="Material" id=7]
 [ext_resource path="res://Niveles/Laberinto/assets/paredes_negras.material" type="Material" id=8]
 [ext_resource path="res://Objetos/lampara/Lampara.tscn" type="PackedScene" id=9]
@@ -117,6 +118,9 @@ transform = Transform( 15, 0, 0, 0, 15, 0, 0, 0, 15, 11.6013, 0.152608, 11.1894 
 [node name="Shooter7" parent="Navigation" instance=ExtResource( 5 )]
 transform = Transform( 15, 0, 0, 0, 15, 0, 0, 0, 15, 11.6013, 0.152608, -5.22468 )
 
+[node name="Monstruo" parent="Navigation" instance=ExtResource( 6 )]
+transform = Transform( 15, 0, 0, 0, 15, 0, 0, 0, 15, -9.38171, 0.204183, -15.9289 )
+
 [node name="Lamparas" type="Node" parent="."]
 
 [node name="Lampara" parent="Lamparas" instance=ExtResource( 9 )]
@@ -124,4 +128,5 @@ transform = Transform( -3.25841e-08, 0, -0.2, 0, 0.2, 0, 0.2, 0, -3.25841e-08, -
 
 [node name="Lampara2" parent="Lamparas" instance=ExtResource( 9 )]
 transform = Transform( -3.25841e-08, 0, -0.2, 0, 0.2, 0, 0.2, 0, -3.25841e-08, -2.96928, 1.23398, -15.1778 )
+[connection signal="script_changed" from="Controller" to="Controller" method="_on_Controller_script_changed"]
 [connection signal="created" from="Navigation/Matilda" to="MatildaLib" method="_on_Matilda_created"]

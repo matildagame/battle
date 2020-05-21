@@ -14,6 +14,11 @@ func _init():
 	set_as_toplevel(true)
 		
 func _ready():
+	
+	# Connect signals to the global node
+	GlobalVariables.connect("s_move", GlobalVariables, "_on_Controller_s_move")
+	
+	
 	offset = get_global_transform().origin
 	offset.x = distance
 	offset.y = heigth
@@ -29,11 +34,15 @@ func _input(event):
 		var space_state = get_world().direct_space_state
 		var result = space_state.intersect_ray(from, to, [], 1)
 		if result:
+			
 			# Update path to wherever is clicked
 			get_tree().call_group("units", "update_path", result.position)
 			GlobalVariables.move = true
 			
-
+			# Moving, emit correspondig signal
+			GlobalVariables.emit_signal("s_move")
+			
+		
 	#---------------------------------------------------------------------------
 	#---------------------------------------------------------------------------
 	# Zoom

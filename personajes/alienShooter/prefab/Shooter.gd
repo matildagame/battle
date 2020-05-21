@@ -61,6 +61,10 @@ enum ESTADOS {parado,andando,atacando,muriendo,bailando,rotando_derecha,rotando_
 var estado=ESTADOS.parado
 
 func _ready():
+	# Connect signals to the global node
+	GlobalVariables.connect("s_select", GlobalVariables, "_on_Controller_s_select")
+	GlobalVariables.connect("s_attack", GlobalVariables, "_on_Controller_s_attack")
+
 
 	BulletPosition = $Skeleton # Ojo, esto tiene que ser donde esté el arma!
 	# Configure ray_cast (Add collision exception to rayCast)
@@ -231,12 +235,13 @@ func take_damage(damageToTake):
 func _input(event):
 	# General Input
 	if event is InputEventMouseButton  and event.button_index == 1 and event.pressed:
+			
 		GlobalVariables.attack = false;
 		GlobalVariables.select = false;
 		GlobalVariables.target_enemy = null;
 		
 		$Skeleton/alienMesh.set_surface_material(0,not_selected)
-		
+
 
 
 func _on_Shooter_input_event(camera, event, click_position, click_normal, shape_idx):
@@ -253,6 +258,10 @@ func _on_Shooter_input_event(camera, event, click_position, click_normal, shape_
 		
 		$Skeleton/alienMesh.set_surface_material(0,selected)
 		
+		# Seleted, emit correspondig signal
+		GlobalVariables.emit_signal("s_select")
+
+		
 	# Attack
 	elif event is InputEventMouseButton and event.button_index == 1 and event.pressed  and  event.doubleclick :
 		print('double click: Atacar ', event)
@@ -264,6 +273,8 @@ func _on_Shooter_input_event(camera, event, click_position, click_normal, shape_
 		
 		$Skeleton/alienMesh.set_surface_material(0,selected)
 
+		# Attacked, emit correspondig signal
+		GlobalVariables.emit_signal("s_attack")
 	
 # Emitted when mouse pointer enters the monster's shape
 func _on_Shooter_mouse_entered():

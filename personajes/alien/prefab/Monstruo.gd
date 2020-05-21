@@ -58,7 +58,9 @@ enum ESTADOS {parado,andando,atacando,muriendo,bailando,rotando_derecha,rotando_
 var estado=ESTADOS.parado
 
 func _ready():
-	
+	# Connect signals to the global node
+	GlobalVariables.connect("s_select", GlobalVariables, "_on_Controller_s_select")
+	GlobalVariables.connect("s_attack", GlobalVariables, "_on_Controller_s_attack")	
 
 	# Configure ray_cast (Add collision exception to rayCast)
 	ray_cast.add_exception($CollisionShape)
@@ -235,6 +237,9 @@ func _on_Monstruo_input_event(camera, event, click_position, click_normal, shape
 		
 		$Skeleton/alienMesh.set_surface_material(0,selected)
 		
+		# Seleted, emit correspondig signal
+		GlobalVariables.emit_signal("s_select")
+		
 	# Attack
 	elif event is InputEventMouseButton and event.button_index == 1 and event.pressed  and  event.doubleclick :
 		print('double click: Atacar ', event)
@@ -246,6 +251,8 @@ func _on_Monstruo_input_event(camera, event, click_position, click_normal, shape
 		
 		$Skeleton/alienMesh.set_surface_material(0,selected)
 
+		# Attacked, emit correspondig signal
+		GlobalVariables.emit_signal("s_attack")
 	
 # Emitted when mouse pointer enters the monster's shape
 func _on_Monstruo_mouse_entered():
@@ -259,3 +266,5 @@ func _on_Monstruo_mouse_exited():
 
 func _on_DieTimer_timeout():
 	$CollisionShape.queue_free()
+
+

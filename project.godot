@@ -21,8 +21,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Global="*res://Singletons/Global.tscn"
 GlobalVariables="*res://Singletons/GlobalVariables.gd"
+Global="*res://Singletons/Global.tscn"
 
 [rendering]
 

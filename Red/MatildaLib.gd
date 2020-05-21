@@ -195,3 +195,12 @@ func enviar_mensaje_crear(object_, name_):
 func _on_Matilda_created(object_, name_):
 	print("on_Matilda_created")
 	enviar_mensaje_crear(object_, name_)
+
+
+
+func _on_Controller_s_move():
+	pass # Replace with function body.
+
+
+func _on_Controller_s_select():
+	pass # Replace with function body.
