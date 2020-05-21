@@ -128,7 +128,7 @@ func process_message(mensaje):
 				Message.TIPO.libraryConnectionReply:
 					estado=ESTADOS.conectado
 				_:
-					print("Error, mensaje no esperado!!!!")
+					print("Error, mensaje no esperado!!!! "+str(mensaje.tipo))
 		ESTADOS.sin_conexion:
 			pass
 		ESTADOS.conectado:
@@ -188,6 +188,10 @@ func enviar_mensaje_crear(object_, name_):
 	else:
 		error=ERROR.socket_error
 
+
+
+
 # Game events, which are communicated to the server:
 func _on_Matilda_created(object_, name_):
+	print("on_Matilda_created")
 	enviar_mensaje_crear(object_, name_)
