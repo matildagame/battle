@@ -2,14 +2,14 @@
 
 importer="wavefront_obj"
 type="Mesh"
-path="res://.import/lampara.obj-48fc2688827f11d6d1f705fa9ad2621e.mesh"
+path="res://.import/lampara.obj-25532b5c00820daca753685e54790346.mesh"
 
 [deps]
 
-files=[ "res://.import/lampara.obj-48fc2688827f11d6d1f705fa9ad2621e.mesh" ]
+files=[ "res://.import/lampara.obj-25532b5c00820daca753685e54790346.mesh" ]
 
-source_file="res://Objetos/lampara/lampara.obj"
-dest_files=[ "res://.import/lampara.obj-48fc2688827f11d6d1f705fa9ad2621e.mesh", "res://.import/lampara.obj-48fc2688827f11d6d1f705fa9ad2621e.mesh" ]
+source_file="res://objetos/lampara/lampara.obj"
+dest_files=[ "res://.import/lampara.obj-25532b5c00820daca753685e54790346.mesh", "res://.import/lampara.obj-25532b5c00820daca753685e54790346.mesh" ]
 
 [params]
 

@@ -177,4 +177,6 @@ margin_top = 185.0
 margin_right = 407.0
 margin_bottom = 204.0
 custom_fonts/font = SubResource( 3 )
+
+[node name="Timer" type="Timer" parent="."]
 [connection signal="pressed" from="Panel/VBoxContainer/Button" to="." method="_on_Button_pressed"]

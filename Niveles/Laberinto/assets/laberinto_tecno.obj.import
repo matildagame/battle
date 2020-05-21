@@ -2,14 +2,14 @@
 
 importer="wavefront_obj"
 type="Mesh"
-path="res://.import/laberinto_tecno.obj-18c71097063f5410cd7960c8a10417ac.mesh"
+path="res://.import/laberinto_tecno.obj-734f6f7135cf922e414acfa6c428a750.mesh"
 
 [deps]
 
-files=[ "res://.import/laberinto_tecno.obj-18c71097063f5410cd7960c8a10417ac.mesh" ]
+files=[ "res://.import/laberinto_tecno.obj-734f6f7135cf922e414acfa6c428a750.mesh" ]
 
-source_file="res://Niveles/Laberinto/assets/laberinto_tecno.obj"
-dest_files=[ "res://.import/laberinto_tecno.obj-18c71097063f5410cd7960c8a10417ac.mesh", "res://.import/laberinto_tecno.obj-18c71097063f5410cd7960c8a10417ac.mesh" ]
+source_file="res://niveles/Laberinto/assets/laberinto_tecno.obj"
+dest_files=[ "res://.import/laberinto_tecno.obj-734f6f7135cf922e414acfa6c428a750.mesh", "res://.import/laberinto_tecno.obj-734f6f7135cf922e414acfa6c428a750.mesh" ]
 
 [params]
 

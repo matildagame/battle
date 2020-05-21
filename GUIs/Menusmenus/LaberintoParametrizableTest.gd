@@ -21,5 +21,17 @@ func _on_Button_pressed():
 	var nombre=$Panel/VBoxContainer/HBoxContainer/Nombre.text
 	var contrasenia=$Panel/VBoxContainer/HBoxContainer2/Contrasena.text
 	var direccion_servidor=$Panel/VBoxContainer/HBoxContainer6/Servidor.text
+	var puerto_servidor=str($Panel/VBoxContainer/HBoxContainer5/Puerto.text)
+	var partida_id=$Panel/VBoxContainer/HBoxContainer3/partidaID.text
 	
-	#network.register_user(,)
+	network.init()
+	network.register(nombre,contrasenia,direccion_servidor,puerto_servidor)
+	
+	yield(network.matildaLib,"registered_received")
+	print("Registrado")
+	
+	#We ask for joining a match..
+	network.join(partida_id,network.matildaLib.token_id)
+	# And wait until the response is received. Is it ok to block the application?
+	yield(network.matildaLib,"join_setup")
+	print("En partida..")

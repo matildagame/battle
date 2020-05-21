@@ -1,5 +1,18 @@
 extends Node
 
+###########################
+# Test of signals
+signal registered_received(token)
+signal join_setup(player_list,npc_list,object_list)
+func register(nombre,contrasenia,direccion_servidor,puerto_servidor):
+	### emit_signal("registered_received","token0000")
+	pass
+	
+func join(partida_id,token):
+	#### emit_signal("join_setup",player_list,npc_list,object_list)
+	pass
+############################
+
 # Game name... maybe this should be set up in other script?
 export var nombre_juego="Battlev0.1"
 

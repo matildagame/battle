@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/TexturesCom_Lights0033_1_M_amarilla.jpg-56aba335064f20611e4ae21c0cb3a35f.s3tc.stex"
-path.etc2="res://.import/TexturesCom_Lights0033_1_M_amarilla.jpg-56aba335064f20611e4ae21c0cb3a35f.etc2.stex"
+path.s3tc="res://.import/TexturesCom_Lights0033_1_M_amarilla.jpg-a153921f1dd385c76cf766199cd5d165.s3tc.stex"
+path.etc2="res://.import/TexturesCom_Lights0033_1_M_amarilla.jpg-a153921f1dd385c76cf766199cd5d165.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Objetos/lampara/TexturesCom_Lights0033_1_M_amarilla.jpg"
-dest_files=[ "res://.import/TexturesCom_Lights0033_1_M_amarilla.jpg-56aba335064f20611e4ae21c0cb3a35f.s3tc.stex", "res://.import/TexturesCom_Lights0033_1_M_amarilla.jpg-56aba335064f20611e4ae21c0cb3a35f.etc2.stex" ]
+source_file="res://objetos/lampara/TexturesCom_Lights0033_1_M_amarilla.jpg"
+dest_files=[ "res://.import/TexturesCom_Lights0033_1_M_amarilla.jpg-a153921f1dd385c76cf766199cd5d165.s3tc.stex", "res://.import/TexturesCom_Lights0033_1_M_amarilla.jpg-a153921f1dd385c76cf766199cd5d165.etc2.stex" ]
 
 [params]
 

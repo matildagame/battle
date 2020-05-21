@@ -2,14 +2,14 @@
 
 importer="wavefront_obj"
 type="Mesh"
-path="res://.import/linterna.obj-439ac58a89856033a5c86e8f79d75f60.mesh"
+path="res://.import/linterna.obj-58eed8442b99f63efe25e0b43bfc48f8.mesh"
 
 [deps]
 
-files=[ "res://.import/linterna.obj-439ac58a89856033a5c86e8f79d75f60.mesh" ]
+files=[ "res://.import/linterna.obj-58eed8442b99f63efe25e0b43bfc48f8.mesh" ]
 
-source_file="res://Objetos/linterna/linterna.obj"
-dest_files=[ "res://.import/linterna.obj-439ac58a89856033a5c86e8f79d75f60.mesh", "res://.import/linterna.obj-439ac58a89856033a5c86e8f79d75f60.mesh" ]
+source_file="res://objetos/linterna/linterna.obj"
+dest_files=[ "res://.import/linterna.obj-58eed8442b99f63efe25e0b43bfc48f8.mesh", "res://.import/linterna.obj-58eed8442b99f63efe25e0b43bfc48f8.mesh" ]
 
 [params]
 
