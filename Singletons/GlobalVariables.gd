@@ -7,6 +7,12 @@ extends Node
 #onready var player = get_node("/root/WorldMap/Navigation/Matilda") # World Map 
 onready var player = get_node("/root/Laberinto/Navigation/Matilda") # Laberinto
 
+# Event Signals
+signal s_attack
+signal s_select
+signal s_move
+
+
 # -----------------------------------------------------------------------------
 # GAME PARAMETERS
 #------------------------------------------------------------------------------
@@ -30,10 +36,14 @@ onready var select = false
 onready var move = false
 onready var move_to_enemy = false
 
+#aux
+onready var aux = false
+
 # ----------------------------------------------------------------------------
 #------------------------------------------------------------------------------
 func _ready():
 #	timer = get_node("Timer")
+#	print(ee)
 
 	if mode == MODE.TIME_TRIAL:
 		$Timer.wait_time = mins*60;
@@ -52,3 +62,23 @@ func _on_Target_body_entered(body):
 	if body == player:
 		print("Mission accomplished!")
 		GlobalVariables.win = true
+
+# Signal Handlers
+func _on_Controller_s_attack():
+	print("Señal caputarada: s_attack")
+	print(attack)
+	aux = false;
+	pass # Replace with function body.
+
+func _on_Controller_s_select():
+	print("Señal caputarada: s_select")
+	aux = false;
+	pass # Replace with function body.
+
+
+func _on_Controller_s_move():
+#	print("Señal caputarada: s_move")
+	pass
+	
+
+
