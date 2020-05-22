@@ -41,10 +41,12 @@ var received_messages=[]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Initializate TCP connection with matildaLib.java and send a first message (GameVersion)
 	init_matlib_connection(lib_servidor,lib_puerto)
 	
 	# This shouldn't be here... maybe some part would need to make up something
 	# beforehand...
+	# Send a Second message indicating the connection parameters with the GameServer.
 	init_server_connection(servidor,puerto)
 	
 	# received_messages.resize(20)
@@ -74,12 +76,7 @@ func conectar_biblioteca(host,puerto):
 		error=ERROR.no_error
 	return error
 	
-## todo...
-#func read_line(socket):
-#	var linea=""
-#
-#	return linea
-	
+# Sends to matildaLib the GameVersion to initialize connection	
 func enviar_mensaje_saludo(nombre_juego):
 	var error=ERROR.no_error
 	if client_socket!=null:
@@ -88,7 +85,8 @@ func enviar_mensaje_saludo(nombre_juego):
 		estado=ESTADOS.esperando_conexion
 	else:
 		error=ERROR.socket_error
-		
+#
+# Sends to matildaLib the necessary parameters to communicate with GameServer		
 func init_server_connection(servidor_,puerto_):
 	var error=ERROR.no_error
 	if client_socket!=null: # and estado==ESTADOS.conectado:
@@ -97,6 +95,12 @@ func init_server_connection(servidor_,puerto_):
 		estado=ESTADOS.esperando_conexion_servidor
 	else:
 		error=ERROR.socket_error
+
+## todo...
+#func read_line(socket):
+#	var linea=""
+#
+#	return linea
 		
 # Just receive messages from the proxy, and shows them at the console..
 # This should be split into a function which queues each parsed message, 
@@ -107,7 +111,7 @@ func _process(delta):
 		if !client_socket.is_connected_to_host(): # maybe not connected anymore?
 			print("Client disconnected "+str(client_socket.get_status()))
 		else:
-			var n= client_socket.get_available_bytes()
+			var n = client_socket.get_available_bytes()
 			if n>0:
 				var datos=client_socket.get_data(n)
 				var pool=PoolByteArray(datos[1])	

@@ -67,12 +67,11 @@ func _on_Target_body_entered(body):
 func _on_Controller_s_attack():
 	print("Señal caputarada: s_attack")
 	print(attack)
-	aux = false;
+
 	pass # Replace with function body.
 
 func _on_Controller_s_select():
 	print("Señal caputarada: s_select")
-	aux = false;
 	pass # Replace with function body.
 
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/TexturesCom_TilesPlain0247_6_seamless_S_suelo_blanco.jpg-4fa348ae9dd9b32e85239103d2dc2e5d.stex"
+path="res://.import/TexturesCom_TilesPlain0247_6_seamless_S_suelo_blanco.jpg-4225d4eb5b0c4b3ee6d467dc227b6091.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://niveles/Laberinto/assets/TexturesCom_TilesPlain0247_6_seamless_S_suelo_blanco.jpg"
-dest_files=[ "res://.import/TexturesCom_TilesPlain0247_6_seamless_S_suelo_blanco.jpg-4fa348ae9dd9b32e85239103d2dc2e5d.stex" ]
+source_file="res://Niveles/Laberinto/assets/TexturesCom_TilesPlain0247_6_seamless_S_suelo_blanco.jpg"
+dest_files=[ "res://.import/TexturesCom_TilesPlain0247_6_seamless_S_suelo_blanco.jpg-4225d4eb5b0c4b3ee6d467dc227b6091.stex" ]
 
 [params]
 

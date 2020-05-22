@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/linterna.jpg-8a2ad6d0092c10c64a3e329b0adbb2ab.s3tc.stex"
-path.etc2="res://.import/linterna.jpg-8a2ad6d0092c10c64a3e329b0adbb2ab.etc2.stex"
+path.s3tc="res://.import/linterna.jpg-50adbe1a2c2167cca4be714d8bff34aa.s3tc.stex"
+path.etc2="res://.import/linterna.jpg-50adbe1a2c2167cca4be714d8bff34aa.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://objetos/linterna/linterna.jpg"
-dest_files=[ "res://.import/linterna.jpg-8a2ad6d0092c10c64a3e329b0adbb2ab.s3tc.stex", "res://.import/linterna.jpg-8a2ad6d0092c10c64a3e329b0adbb2ab.etc2.stex" ]
+source_file="res://Objetos/linterna/linterna.jpg"
+dest_files=[ "res://.import/linterna.jpg-50adbe1a2c2167cca4be714d8bff34aa.s3tc.stex", "res://.import/linterna.jpg-50adbe1a2c2167cca4be714d8bff34aa.etc2.stex" ]
 
 [params]
 

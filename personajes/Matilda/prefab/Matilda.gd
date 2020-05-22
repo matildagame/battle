@@ -105,7 +105,7 @@ func _ready():
 	BulletPosition = $Skeleton # Ojo, esto tiene que ser donde esté el arma!
 	
 # set the hair color, from a set of base materials
-func set_hair_tone(tone):
+func set_hair_tone(id_tone):
 	var hair_texture=["basepelo.png",
 	"basepelo_amarillo.png", 
 	"basepelo_azul.png", 
@@ -113,8 +113,27 @@ func set_hair_tone(tone):
 	"basepelo_rojo.png",
 	"basepelo_verde.png"]
 	
-	$Skeleton/Pelo.get_surface_material(0).albedo_texture=load("res://personajes/Matilda/materiales/"+hair_texture[tone])
+	$Skeleton/Pelo.get_surface_material(0).albedo_texture=load("res://personajes/Matilda/materiales/"+hair_texture[id_tone])
+
+# set the body texture, from a set of base materials
+func set_texture(id_texture):
+	var texture=["base.png"]
+	# TODO: Add texutres
 	
+	$Skeleton/Cuerpo.get_surface_material(0).albedo_texture=load("res://personajes/Matilda/materiales/"+texture[id_texture])
+
+# set postion within the world
+func set_position(postion):
+	pass
+
+func set_gender(id_gender):
+	# O: Female Mesh
+	# 1: Male Mesh	
+	var mesh=["idle.dae"]
+	# TODO: Add meshes
+	
+	$Skeleton/Cuerpo.mesh = load("res://personajes/Matilda/modelo/"+mesh[id_gender])
+		
 func _on_AttackTimer_timeout():
 	
 	if(GlobalVariables.target_enemy!=null):

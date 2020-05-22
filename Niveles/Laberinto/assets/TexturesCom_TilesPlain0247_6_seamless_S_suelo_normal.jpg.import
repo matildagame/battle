@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/TexturesCom_TilesPlain0247_6_seamless_S_suelo_normal.jpg-54e2fc10a690a4fd3a0e41b29fa3a3d4.s3tc.stex"
-path.etc2="res://.import/TexturesCom_TilesPlain0247_6_seamless_S_suelo_normal.jpg-54e2fc10a690a4fd3a0e41b29fa3a3d4.etc2.stex"
+path.s3tc="res://.import/TexturesCom_TilesPlain0247_6_seamless_S_suelo_normal.jpg-72a3b302d196b9070d7832717fa18c50.s3tc.stex"
+path.etc2="res://.import/TexturesCom_TilesPlain0247_6_seamless_S_suelo_normal.jpg-72a3b302d196b9070d7832717fa18c50.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://niveles/Laberinto/assets/TexturesCom_TilesPlain0247_6_seamless_S_suelo_normal.jpg"
-dest_files=[ "res://.import/TexturesCom_TilesPlain0247_6_seamless_S_suelo_normal.jpg-54e2fc10a690a4fd3a0e41b29fa3a3d4.s3tc.stex", "res://.import/TexturesCom_TilesPlain0247_6_seamless_S_suelo_normal.jpg-54e2fc10a690a4fd3a0e41b29fa3a3d4.etc2.stex" ]
+source_file="res://Niveles/Laberinto/assets/TexturesCom_TilesPlain0247_6_seamless_S_suelo_normal.jpg"
+dest_files=[ "res://.import/TexturesCom_TilesPlain0247_6_seamless_S_suelo_normal.jpg-72a3b302d196b9070d7832717fa18c50.s3tc.stex", "res://.import/TexturesCom_TilesPlain0247_6_seamless_S_suelo_normal.jpg-72a3b302d196b9070d7832717fa18c50.etc2.stex" ]
 
 [params]
 
