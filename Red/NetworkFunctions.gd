@@ -22,7 +22,7 @@ func _ready():
 #	pass
 
 func init():
-	###matildaLib.init()
+	matildaLib.init()
 	pass
 	
 func register(nombre,contrasenia,direccion_servidor,puerto_servidor):

@@ -4,13 +4,7 @@ extends Node
 # Test of signals
 signal registered_received(token)
 signal join_setup(player_list,npc_list,object_list)
-func register(nombre,contrasenia,direccion_servidor,puerto_servidor):
-	### emit_signal("registered_received","token0000")
-	pass
-	
-func join(partida_id,token):
-	#### emit_signal("join_setup",player_list,npc_list,object_list)
-	pass
+
 ############################
 
 # Game name... maybe this should be set up in other script?
@@ -41,13 +35,17 @@ var received_messages=[]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# init()
+	pass
+
+func init():
 	# Initializate TCP connection with matildaLib.java and send a first message (GameVersion)
 	init_matlib_connection(lib_servidor,lib_puerto)
 	
-	# This shouldn't be here... maybe some part would need to make up something
-	# beforehand...
-	# Send a Second message indicating the connection parameters with the GameServer.
-	init_server_connection(servidor,puerto)
+#	# This shouldn't be here... maybe some part would need to make up something
+#	# beforehand...
+#	# Send a Second message indicating the connection parameters with the GameServer.
+#	init_server_connection(servidor,puerto)
 	
 	# received_messages.resize(20)
 
@@ -76,25 +74,6 @@ func conectar_biblioteca(host,puerto):
 		error=ERROR.no_error
 	return error
 	
-# Sends to matildaLib the GameVersion to initialize connection	
-func enviar_mensaje_saludo(nombre_juego):
-	var error=ERROR.no_error
-	if client_socket!=null:
-		# We should define better this protocol...
-		client_socket.put_data(PoolByteArray(("HI::"+nombre_juego+"\n").to_ascii()))
-		estado=ESTADOS.esperando_conexion
-	else:
-		error=ERROR.socket_error
-#
-# Sends to matildaLib the necessary parameters to communicate with GameServer		
-func init_server_connection(servidor_,puerto_):
-	var error=ERROR.no_error
-	if client_socket!=null: # and estado==ESTADOS.conectado:
-		# We should define better this protocol...
-		client_socket.put_data(PoolByteArray(("CONNECT:"+servidor_+":"+str(puerto_)+"\n").to_ascii()))
-		estado=ESTADOS.esperando_conexion_servidor
-	else:
-		error=ERROR.socket_error
 
 ## todo...
 #func read_line(socket):
@@ -195,29 +174,64 @@ class Message:
 					merror=0
 				else:
 					merror=int(campos[1])
-	
+			_:
+				print(">> "+linea+" << Unknown!")
 
-func enviar_mensaje_crear(object_, name_):
+
+
+func enviar_mensaje(mensaje):
 	var error=ERROR.no_error
 	if client_socket!=null:
 		# We should define better this protocol...
-		client_socket.put_data(PoolByteArray(("Spawn::"+name_+"\n").to_ascii()))
+		client_socket.put_data(PoolByteArray((mensaje+"\n").to_ascii()))
 	else:
 		error=ERROR.socket_error
+		
+#
+# Sends to matildaLib the necessary parameters to communicate with GameServer		
+func init_server_connection(servidor_,puerto_):
+#	var error=ERROR.no_error
+#	if client_socket!=null: # and estado==ESTADOS.conectado:
+#		# We should define better this protocol...
+#		client_socket.put_data(PoolByteArray(("CONNECT:"+servidor_+":"+str(puerto_)+"\n").to_ascii()))
+#		estado=ESTADOS.esperando_conexion_servidor
+#	else:
+#		error=ERROR.socket_error
+	var error=enviar_mensaje("CONNECT:"+servidor_+":"+str(puerto_))
+	if error==ERROR.no_error:
+		estado=ESTADOS.esperando_conexion_servidor
+	return error
 
+# Sends to matildaLib the GameVersion to initialize connection	
+# We should define better this protocol...
+func enviar_mensaje_saludo(nombre_juego):
+	var error=enviar_mensaje("HI::"+nombre_juego)
+	if error==ERROR.no_error:
+		estado=ESTADOS.esperando_conexion
+	return error;
+		
+		
+func enviar_mensaje_crear(object_, name_):
+	return enviar_mensaje("Spawn::"+name_)
 
-
-
-# Game events, which are communicated to the server:
-func _on_Matilda_created(object_, name_):
-	print("on_Matilda_created")
-	enviar_mensaje_crear(object_, name_)
-
-
-
-func _on_Controller_s_move():
-	pass # Replace with function body.
-
-
-func _on_Controller_s_select():
-	pass # Replace with function body.
+func register(nombre,contrasenia,direccion_servidor,puerto_servidor):
+	### emit_signal("registered_received","token0000")
+	return enviar_mensaje("REG:"+nombre+":"+contrasenia+":"+
+		direccion_servidor+":"+str(puerto_servidor))
+	
+func join(partida_id,token):
+	return enviar_mensaje("JOIN:"+partida_id+":"+token)
+	
+## Game events, which are communicated to the server:
+#func _on_Matilda_created(object_, name_):
+#	print("on_Matilda_created")
+#	enviar_mensaje_crear(object_, name_)
+#
+#
+#
+#func _on_Controller_s_move():
+#	pass # Replace with function body.
+#
+#
+#func _on_Controller_s_select():
+#	pass # Replace with function body.
