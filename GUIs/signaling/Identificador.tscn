@@ -3,7 +3,7 @@
 [ext_resource path="res://GUIs/HUD/assets/font/Comfortaa-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://GUIs/signaling/Identificador.gd" type="Script" id=2]
 
-[sub_resource type="ViewportTexture" id=3]
+[sub_resource type="ViewportTexture" id=1]
 viewport_path = NodePath("Viewport")
 
 [sub_resource type="DynamicFont" id=2]
@@ -15,7 +15,7 @@ centered = false
 flip_v = true
 billboard = 1
 double_sided = false
-texture = SubResource( 3 )
+texture = SubResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Viewport" type="Viewport" parent="."]

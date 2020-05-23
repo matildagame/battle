@@ -130,3 +130,5 @@ transform = Transform( -3.25841e-08, 0, -0.2, 0, 0.2, 0, 0.2, 0, -3.25841e-08, -
 transform = Transform( -3.25841e-08, 0, -0.2, 0, 0.2, 0, 0.2, 0, -3.25841e-08, -2.96928, 1.23398, -15.1778 )
 [connection signal="script_changed" from="Controller" to="Controller" method="_on_Controller_script_changed"]
 [connection signal="created" from="Navigation/Matilda" to="MatildaLib" method="_on_Matilda_created"]
+
+[editable path="Navigation/Matilda"]
