@@ -16,6 +16,8 @@ import java.util.logging.Logger;
  */
 class Mensaje {
 
+
+
    
    
 
@@ -24,7 +26,8 @@ class Mensaje {
     enum MessageType {invalidMessage,libraryConnectionRequest,libraryChatMessage,
 	libraryConnectionReply,
 	rpcSpawn,rpcUpdatePosition,rpcUpdateValue,
-	serverConnectionReply, serverConnectionRequest
+	serverConnectionReply, serverConnectionRequest,
+        rpcRegister
     }
     
     // Campos del mensaje:
@@ -35,6 +38,10 @@ class Mensaje {
     
     String nombre="";
     String objeto="";
+
+    private String contrasenia="+";
+    private String direccionServidorRegistro="locahost";
+    private int puertoServidorRegistro=9999;
     
     String servidor="localhost";
     int puerto=9090;
@@ -72,6 +79,12 @@ class Mensaje {
             tipo=MessageType.serverConnectionRequest;
             servidor=campos[1];
             puerto=Integer.parseInt(campos[2]); 
+        } else if(campos[0].compareTo("REG")==0){
+            tipo=MessageType.rpcRegister;
+            nombre=campos[1];
+            contrasenia=campos[2];
+            direccionServidorRegistro=campos[3];
+            puertoServidorRegistro=Integer.parseInt(campos[4]); 
         }
         
         return error;
@@ -83,6 +96,7 @@ class Mensaje {
         try {
             // suponemos mensajes orientados a líneas de texto:
             mensaje=in.readLine();
+            System.out.println("> Raw: \""+mensaje+"\"");
             
         } catch (IOException ex) {
             Logger.getLogger(Mensaje.class.getName()).log(Level.SEVERE, null, ex);
@@ -103,4 +117,31 @@ class Mensaje {
         return aplicacion;
     }
 
+    public String getPassword(){
+        return contrasenia;
+    }
+    
+    public String getName() {
+        return nombre;
+    }
+
+    public void setName(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getObject() {
+        return objeto;
+    }
+
+    public void setObject(String objeto) {
+        this.objeto = objeto;
+    }
+
+    public String getRegistrationServerAddress(){
+        return direccionServidorRegistro;
+    }
+    
+    public int getRegistrationServerPort(){
+        return puertoServidorRegistro;
+    }
 }

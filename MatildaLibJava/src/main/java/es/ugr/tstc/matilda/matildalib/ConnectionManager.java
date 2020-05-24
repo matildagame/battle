@@ -30,13 +30,21 @@ public class ConnectionManager {
             socket=new Socket(servidor,puerto);
             
             in=new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out=new PrintWriter(socket.getOutputStream());
+            out=new PrintWriter(socket.getOutputStream(),true);
             
         } catch (IOException ex) {
             Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
             error=1;
         }
         
+        return error;
+    }
+
+    int sendSpawnRequest(String object, String name) {
+        int error=0;
+        
+        out.println("SPAWN:"+object+":"+name);
+
         return error;
     }
     

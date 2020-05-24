@@ -32,6 +32,23 @@ public class MatildaLibClient {
     private void sendConnectionReplyOk() {
         out.println("CONNECT:Ok");
     }
+
+    private void sendSpawnRequest(String object, String name) {
+        out.println("SPAWN:"+object+":"+name);
+    }
+
+    void setRegistrationManager(RegistrationManager registrationManager) {
+        this.registrationManager=registrationManager;
+    }
+
+    private void sendRegistrationServerError(int error) {
+        String error_[]={"ErrUser","ErrServ"};
+        out.println("REG:Error");
+    }
+
+    private void sendRegistrationFinished(String token) {
+        out.println("REG:Ok:"+token);
+    }
     
     enum Estados {inicial, inicializado};
     
@@ -41,6 +58,7 @@ public class MatildaLibClient {
     ConnectionManager connectionManager=null;
     GameObjectManager gameObjectManager=null;
     ChatManager chatManager=null;
+    RegistrationManager registrationManager=null;
     
     public void setConnectionManager(ConnectionManager cm){
         connectionManager=cm;
@@ -72,15 +90,17 @@ public class MatildaLibClient {
     
     public int init(){
         int error=0;
-        
+        boolean salir=false;
           ServerSocket serverSocket;
         try {
             serverSocket = new ServerSocket(libPort);
         
+            do{
             Socket socket = serverSocket.accept();
-    
+            System.out.println("New MatildaLib connection...");
+                    
             crearProcesador(socket);
-            
+            } while(!salir);
            
             
             serverSocket.close();
@@ -109,13 +129,13 @@ public class MatildaLibClient {
             do {
                 Mensaje mensaje=new Mensaje(in);
                 
-                System.out.print("Recibido mensaje Tipo: "+mensaje.getType());
+                System.out.println("> Recibido mensaje Tipo: "+mensaje.getType());
                 
                 switch(estado){
                     case inicial:
                         if (mensaje.getType()==Mensaje.MessageType.libraryConnectionRequest){
                             
-                            System.out.println("Conectando con aplicación: "+mensaje.getApplication());
+                            System.out.println("# Conectando con aplicación: "+mensaje.getApplication());
                             
                             sendLibraryConnectionResponse(mensaje.getApplication());
                             
@@ -124,8 +144,42 @@ public class MatildaLibClient {
                         break;
                     case inicializado:
                         switch(mensaje.getType()){
+                            case rpcRegister:
+                                System.out.println("Registrando...");
+                                
+                                if(registrationManager==null){
+                                    registrationManager.init(
+                                            mensaje.getRegistrationServerAddress(),
+                                            mensaje.getRegistrationServerPort());
+                                }
+                                
+                                if (registrationManager.getStatus()==RegistrationManager.StatusConnected){
+                                    registrationManager.register(mensaje.getName(),mensaje.getPassword());
+                                    
+                                    if(registrationManager.getToken()!=null){
+                                        System.out.println("Registrado! "+registrationManager.getToken());
+                                        sendRegistrationFinished(registrationManager.getToken());
+                                    } else{
+                                      sendRegistrationServerError(RegistrationManager.StatusInvalidUser);
+                                    }
+                                } else {
+                                    sendRegistrationServerError(RegistrationManager.StatusServerUnreachable);
+                                }
+                                
+                                break;
+                                
                             case rpcSpawn:
                                 System.out.println("Llega un Spawn...");
+                                
+                                
+                                   error=connectionManager.sendSpawnRequest(mensaje.getObject(),mensaje.getName());
+                                if(error!=0){
+                                   System.out.println("No se puede enviar mensaje al servidor..."); 
+                                   sendConnectionReplyRefused(error); // to fix
+                                } else {
+                                    sendConnectionReplyOk(); // to fix
+                                    // estado=Estados.inicializado_servidor
+                                }
                                 break;
                             case serverConnectionRequest:
                                  System.out.println("Llega una solicitud de comenzar conexión..");
