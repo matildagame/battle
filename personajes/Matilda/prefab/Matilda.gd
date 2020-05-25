@@ -71,8 +71,21 @@ enum ESTADOS {parado,andando,muriendo,bailando,rotando_derecha,rotando_izquierda
 # Estado Inicial
 var estado=ESTADOS.parado
 
+
+func _ready():
+	
+	init(vida_100,maxHp,energia_100,maxEp,maxAp,is_local)
+	
+	add_to_group("units")
+	add_child(LineDrawer)
+	
+	attack_timer.wait_time = attackRate
+	attack_timer.start()
+	BulletPosition = $Skeleton # Ojo, esto tiene que ser donde esté el arma!
+
+
 # Just ot instantiate and change parameters afterwards:
-func init(vida_100_, maxHP_ ,energia_100_,maxEp_,maxAp_,hair_color_,alias_,is_local_):
+func init(vida_100_, maxHP_ ,energia_100_,maxEp_,maxAp_,is_local_):
 	# Set Inicial Stats
 	# Health
 	life_bar.set_texture(vida_100_)
@@ -83,26 +96,37 @@ func init(vida_100_, maxHP_ ,energia_100_,maxEp_,maxAp_,hair_color_,alias_,is_lo
 	# Ammunition
 	energy_count.text = str(maxAp_)
 	
-	alias=alias_
-	
-	# Set hair tone:
-	set_hair_tone(hair_color_)
-	
 	is_local=is_local_
 	if is_local:
 		# Let's say it's happening
 		emit_signal("created",self,alias)
+
+#-------------------------------------------------------------------------------
+# SPAWN FUNCTIONS
+#-------------------------------------------------------------------------------
+# set the body texture, from a set of base materials
+# set the player alias, taken from the token
+
+func spawn(id_alias,id_gender,id,tone,id_texure):
+	pass
+
+# Set gender (Meshes,)
+func set_gender(id_gender):
+	# O: Female Mesh
+	# 1: Male Mesh	
+	var mesh=["idle.dae"]
+#	# TODO: Add meshes
+	print(load("res://personajes/Matilda/modelo/matilda.fbx").instance())
+#	print(load("res://personajes/Matilda/modelo/"+mesh[id_gender]))
+#	$Skeleton/Cuerpo.mesh = load("res://personajes/Matilda/modelo/"+mesh[id_gender])
+	print(load("res://personajes/Matilda/modelo/Idle.dae").instance())
+#	$Skeleton/Cuerpo.mesh = load("res://personajes/Matilda/modelo/Idle.dae")
 	
-func _ready():
-	
-	init(vida_100,maxHp,energia_100,maxEp,maxAp,hair_color,alias,is_local)
-	
-	add_to_group("units")
-	add_child(LineDrawer)
-	
-	attack_timer.wait_time = attackRate
-	attack_timer.start()
-	BulletPosition = $Skeleton # Ojo, esto tiene que ser donde esté el arma!
+	pass
+func set_alias(id_alias):
+	alias = id_alias
+	$MejorIdentificador.nombre = id_alias
+	print(alias)
 	
 # set the hair color, from a set of base materials
 func set_hair_tone(id_tone):
@@ -114,26 +138,27 @@ func set_hair_tone(id_tone):
 	"basepelo_verde.png"]
 	
 	$Skeleton/Pelo.get_surface_material(0).albedo_texture=load("res://personajes/Matilda/materiales/"+hair_texture[id_tone])
-
-# set the body texture, from a set of base materials
 func set_texture(id_texture):
-	var texture=["base.png"]
+	var texture=["base.png",
+				 "base_1.jpg",
+				 "base_diferencia.jpg",
+				 "base_luz_suave.jpg"]
 	# TODO: Add texutres
 	
+#	$Skeleton/Cuerpo.set_surface_material(1, load("res://personajes/Matilda/materiales/cuerpo.material"))
+#	print($Skeleton/Cuerpo.get_surface_material(1))
 	$Skeleton/Cuerpo.get_surface_material(0).albedo_texture=load("res://personajes/Matilda/materiales/"+texture[id_texture])
 
 # set postion within the world
-func set_position(postion):
-	pass
+func set_position(position):
+	translation = position
 
-func set_gender(id_gender):
-	# O: Female Mesh
-	# 1: Male Mesh	
-	var mesh=["idle.dae"]
-	# TODO: Add meshes
 	
-	$Skeleton/Cuerpo.mesh = load("res://personajes/Matilda/modelo/"+mesh[id_gender])
-		
+#-------------------------------------------------------------------------------
+# #
+#-------------------------------------------------------------------------------
+
+# Attack timer
 func _on_AttackTimer_timeout():
 	
 	if(GlobalVariables.target_enemy!=null):

@@ -3,16 +3,13 @@ extends Node
 # Supossed to be emmited when an user has joined
 signal token_id_ready(token)
 
-# Resources for the spwan procedure, texture, meshes...
-
-
-
+# Variables
 var matildaLib
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Connect to signal manager
 	connect("token_id_ready", self, "_on_token_id_ready")
+	emit_signal("token_id_ready","jjramos:0:0:2")
 	
 	var MatildaLib=preload("MatildaLib.gd")
 	matildaLib=MatildaLib.new()
@@ -34,33 +31,30 @@ func join(partida_id,token):
 # User has joined, needs to be spwaned
 func _on_token_id_ready(token):
 	# Extract Information from the token (e.g. "user:model:texture:haircolor" -> "jjramos:0:1:3")
-	
-	# Example given
-	token = "jjramos:0:1:3"
+	token = "jjramos:0:1:2"
 	var IDs = token.split(":")
-	var user_id = int(IDs[0])
+	var user_id = IDs[0]
 	var gender_id  = int(IDs[1])
 	var texture_id  =int(IDs[2])
 	var hair_id = int(IDs[3])
 	
-	# TODO:Set position
-	var position = Vector3(0,0,0)
+	# TODO: Set position within a predefinited area
+	var position = Vector3(-1.578,0.242,-18.31)
 	
 	# Spwan the player
 	spawn(user_id,gender_id,texture_id,hair_id,position)
 
-
 func spawn(user_id,gender_id,texture_id,hair_id, position):
-	# Instanciate player
-	var player = preload("res://personajes/Matilda/prefab/Matilda.tscn")
+	# Preload player packaged scene and instancaite
+	var player = preload("res://personajes/Matilda/prefab/Matilda.tscn").instance()
+	# Add player as a child of Laberinto/Navigation (Main scene)
+	get_node("/root/Laberinto/Navigation").add_child(player) # Laberinto
 	# Add specific features
+	player.set_alias(user_id)
 	player.set_gender(gender_id)
 	player.set_hair_tone(hair_id)
 	player.set_texture(texture_id)
 	player.set_position(position)
 	
-	#TODO:
-	# Add player as a child of Laberinto/Navigation (Main scene)
-	
-	pass
+
 	
