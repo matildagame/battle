@@ -31,7 +31,7 @@ func join(partida_id,token):
 # User has joined, needs to be spwaned
 func _on_token_id_ready(token):
 	# Extract Information from the token (e.g. "user:model:texture:haircolor" -> "jjramos:0:1:3")
-	token = "jjramos:0:1:2"
+	token = "jjramos:0:1:0"
 	var IDs = token.split(":")
 	var user_id = IDs[0]
 	var gender_id  = int(IDs[1])
@@ -45,16 +45,21 @@ func _on_token_id_ready(token):
 	spawn(user_id,gender_id,texture_id,hair_id,position)
 
 func spawn(user_id,gender_id,texture_id,hair_id, position):
-	# Preload player packaged scene and instancaite
-	var player = preload("res://personajes/Matilda/prefab/Matilda.tscn").instance()
-	# Add player as a child of Laberinto/Navigation (Main scene)
-	get_node("/root/Laberinto/Navigation").add_child(player) # Laberinto
-	# Add specific features
-	player.set_alias(user_id)
-	player.set_gender(gender_id)
-	player.set_hair_tone(hair_id)
-	player.set_texture(texture_id)
-	player.set_position(position)
-	
 
+	if gender_id == 0: # MATILDA
+		# Preload player packaged scene and instancaite
+#		var player = preload("res://personajes/Matilda/prefab/Matilda.tscn").instance() #Original Matilda
+		var player = preload("res://personajes/Matilda2.0/prefab/Matilda2.0.tscn").instance() # Matilda 2.0
+
+		# Add player as a child of Laberinto/Navigation (Main scene)
+		# OJO
+		get_node("/root/Laberinto/Navigation").add_child(player) # Laberinto
+		# Add specific features
+		player.set_alias(user_id)
+		player.set_hair_tone(hair_id)
+		player.set_texture(texture_id)
+		player.set_position(position)
+		
+	elif gender_id == 1: # MATILDO
+		pass
 	

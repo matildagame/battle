@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/matilda.fbx-8ff36316496debd45189ed46123eeaa1.scn"
+path="res://.import/Matilda2.0.fbx-3b244b660e4ce2e8240508a9d553221d.scn"
 
 [deps]
 
-source_file="res://personajes/Matilda/modelo/matilda.fbx"
-dest_files=[ "res://.import/matilda.fbx-8ff36316496debd45189ed46123eeaa1.scn" ]
+source_file="res://personajes/Matilda2.0/modelo/Matilda2.0.fbx"
+dest_files=[ "res://.import/Matilda2.0.fbx-3b244b660e4ce2e8240508a9d553221d.scn" ]
 
 [params]
 

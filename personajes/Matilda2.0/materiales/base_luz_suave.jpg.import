@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/base_diferencia.jpg-f1cdf53b11bb7ae72efa0cbe554e6989.stex"
+path="res://.import/base_luz_suave.jpg-d21b7e94894eac8915946e8bd30004a3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://personajes/Matilda/materiales/base_diferencia.jpg"
-dest_files=[ "res://.import/base_diferencia.jpg-f1cdf53b11bb7ae72efa0cbe554e6989.stex" ]
+source_file="res://personajes/Matilda2.0/materiales/base_luz_suave.jpg"
+dest_files=[ "res://.import/base_luz_suave.jpg-d21b7e94894eac8915946e8bd30004a3.stex" ]
 
 [params]
 

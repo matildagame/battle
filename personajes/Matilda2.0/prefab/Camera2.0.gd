@@ -1,4 +1,3 @@
-
 extends Camera
   
 const ray_length = 1000
@@ -6,8 +5,8 @@ const ray_length = 1000
 onready var player = get_parent()
 var offset : Vector3
 
-export var distance = -10
-export var heigth = 9
+export var distance = -4
+export var heigth = 5
 
 
 func _init():

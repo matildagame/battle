@@ -120,10 +120,9 @@ func set_gender(id_gender):
 #	print(matilda_mesh)
 #	$Skeleton/Cuerpo.mesh = matilda_mesh
 #	$Skeleton/Cuerpo.set_surface_material(0, load("res://personajes/Matilda/modelo/Material_001.material"))
-#
 
-	
 	pass
+	
 func set_alias(id_alias):
 	alias = id_alias
 	$MejorIdentificador.nombre = id_alias
@@ -131,31 +130,25 @@ func set_alias(id_alias):
 	
 # set the hair color, from a set of base materials
 func set_hair_tone(id_tone):
-	var hair_texture=["basepelo.png",
-	"basepelo_amarillo.png", 
-	"basepelo_azul.png", 
-	"basepelo_gris.png", 
-	"basepelo_rojo.png",
-	"basepelo_verde.png"]
+	var hair_texture=["pelo_principal.jpg",
+	"pelo1.jpg",
+	"pelo2.jpg"]
 	
-	$Skeleton/Pelo.get_surface_material(0).albedo_texture=load("res://personajes/Matilda/materiales/"+hair_texture[id_tone])
+	print($Skeleton/Pelo)
+	if id_tone >= 0 and id_tone <= 2:
+		$Skeleton/Pelo.get_surface_material(0).albedo_texture=load("res://personajes/Matilda2.0/materiales/"+hair_texture[id_tone])
+
 func set_texture(id_texture):
-	var texture=["base.png",
-				 "base_1.jpg",
+	var texture=["base.jpg",
 				 "base_diferencia.jpg",
 				 "base_luz_suave.jpg"]
 	# TODO: Add texutres
-	
-#	$Skeleton/Cuerpo.set_surface_material(1, load("res://personajes/Matilda/materiales/cuerpo.material"))
-#	print($Skeleton/Cuerpo.get_surface_material(1))
-
-
-	$Skeleton/Cuerpo.get_surface_material(0).albedo_texture=load("res://personajes/Matilda/materiales/"+texture[id_texture])
+	if id_texture >= 0 and id_texture <= 2:
+		$Skeleton/Cuerpo.get_surface_material(0).albedo_texture=load("res://personajes/Matilda2.0/materiales/"+texture[id_texture])
 
 # set postion within the world
 func set_position(position):
 	translation = position
-
 	
 #-------------------------------------------------------------------------------
 # #
@@ -163,6 +156,7 @@ func set_position(position):
 
 # Attack timer
 func _on_AttackTimer_timeout():
+	
 	if(GlobalVariables.target_enemy!=null):
 		var enemy_ray_cast = get_node(str(GlobalVariables.target_enemy.get_path()) + "/RayCast")
 		# While attack distance is not reached or there is not direct vision, keep moving...

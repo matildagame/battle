@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/base_luz_suave.jpg-2683747395d32df4246a29f01d6d612e.stex"
+path="res://.import/pelo2.jpg-d5e3eaee084266df7e10e998e7a0dbc8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://personajes/Matilda/materiales/base_luz_suave.jpg"
-dest_files=[ "res://.import/base_luz_suave.jpg-2683747395d32df4246a29f01d6d612e.stex" ]
+source_file="res://personajes/Matilda2.0/materiales/pelo2.jpg"
+dest_files=[ "res://.import/pelo2.jpg-d5e3eaee084266df7e10e998e7a0dbc8.stex" ]
 
 [params]
 
