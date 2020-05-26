@@ -4,8 +4,7 @@ extends Node
 # Test of signals
 signal registered_received(token)
 signal join_setup(player_list,npc_list,object_list)
-signal players_list_updated(player_list)
-signal start_match(player_spawn_info)
+
 ############################
 
 # Game name... maybe this should be set up in other script?
@@ -155,46 +154,29 @@ class Message:
 	enum TIPO {invalidMessage,libraryConnectionRequest,libraryChatMessage,
 	libraryConnectionReply,
 	rpcSpawn,rpcUpdatePosition,rpcUpdateValue,
-	serverConnectionReply, serverConnectionRequest,
-	PLAYERS_LIST_UPDATE,START_MATCH,JOIN_REPLY}
+	serverConnectionReply, serverConnectionRequest}
 	
 	var tipo=TIPO.invalidMessage
 	var merror=0
 	
 	func _init(linea):
-		var campos=linea.split(" ")
+		var campos=linea.split(":")
 		var orden=campos[0]
 		
-#		match orden:
-#			"PLAYERS_LIST_UPDATE":
-#				tipo=TIPO.PLAYERS_LIST_UPDATE;
-#				players_list=parse_player_list_update(campos[1]);
-#				emit_signal("players_list_updated",players_list)
-#			"START_MATCH":
-#				tipo=TIPO.START_MATCH
-#				player_spawn_info=parse_start_match(campos[1]);
-#				emit_signal("start_match",player_spawn_info)
-#			"JOIN_REPLY":
-#				tipo=TIPO.JOIN_REPLY
-#				token=parse_join_reply(campo[1])
-#				emit_signal("registered_received",token)
-#			"Hi":
-#				tipo=TIPO.libraryConnectionReply
-#			"Spawn":
-#				tipo=TIPO.rpcSpawn
-#			"CONNECT":
-#				tipo=TIPO.serverConnectionReply
-#				if campos[1]=="Ok":
-#					merror=0
-#				else:
-#					merror=int(campos[1])
-#			_:
-#				print(">> "+linea+" << Unknown!")
+		match orden:
+			"Hi":
+				tipo=TIPO.libraryConnectionReply
+			"Spawn":
+				tipo=TIPO.rpcSpawn
+			"CONNECT":
+				tipo=TIPO.serverConnectionReply
+				if campos[1]=="Ok":
+					merror=0
+				else:
+					merror=int(campos[1])
+			_:
+				print(">> "+linea+" << Unknown!")
 
-	func serialize():
-		match(tipo):
-			TIPO.JOIN_REQUEST:
-				pass
 
 
 func enviar_mensaje(mensaje):

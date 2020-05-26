@@ -30,8 +30,12 @@ func _on_Button_pressed():
 	yield(network.matildaLib,"registered_received")
 	print("Registrado")
 	
+	#yield(network.matildaLib,"start_match")
+	#print("Registrado")
+	
 	#We ask for joining a match..
-	network.join(partida_id,network.matildaLib.token_id)
+	#network.join(partida_id,network.matildaLib.token_id)
 	# And wait until the response is received. Is it ok to block the application?
-	yield(network.matildaLib,"join_setup")
-	print("En partida..")
+	#yield(network.matildaLib,"join_setup")
+	#print("En partida..")
+	
