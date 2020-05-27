@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/MAtilda.gltf-81f7e6cfb8a06fe5657f3a233395e8dc.scn"
+path="res://.import/Correr.fbx-67c3393cc38d38211c9003f86989e5c7.scn"
 
 [deps]
 
-source_file="res://personajes/Matilda2.0/modelo/MAtilda.gltf"
-dest_files=[ "res://.import/MAtilda.gltf-81f7e6cfb8a06fe5657f3a233395e8dc.scn" ]
+source_file="res://personajes/Matildo2.0/animaciones/Correr.fbx"
+dest_files=[ "res://.import/Correr.fbx-67c3393cc38d38211c9003f86989e5c7.scn" ]
 
 [params]
 

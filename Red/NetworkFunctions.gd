@@ -61,5 +61,15 @@ func spawn(user_id,gender_id,texture_id,hair_id, position):
 		player.set_position(position)
 		
 	elif gender_id == 1: # MATILDO
-		pass
+		# Preload player packaged scene and instancaite
+#		var player = preload("res://personajes/Matildo2.0/prefab/Matildo2.0.tscn").instance() # Matildo 2.0
+		var player = preload("res://personajes/Matilda/prefab/Matilda.tscn").instance() #Original Matilda
+		# Add player as a child of Laberinto/Navigation (Main scene)
+		# OJO
+		get_node("/root/Laberinto/Navigation").add_child(player) # Laberinto
+		# Add specific features
+		player.set_alias(user_id)
+		player.set_hair_tone(hair_id)
+		player.set_texture(texture_id)
+		player.set_position(position)
 	
