@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Correr.fbx-67c3393cc38d38211c9003f86989e5c7.scn"
+path="res://.import/Idle_casual.glb-ffd06217a447a6b6711a9469dbf8f802.scn"
 
 [deps]
 
-source_file="res://personajes/Matildo2.0/animaciones/Correr.fbx"
-dest_files=[ "res://.import/Correr.fbx-67c3393cc38d38211c9003f86989e5c7.scn" ]
+source_file="res://personajes/Matildo2.0/animaciones/Idle_casual.glb"
+dest_files=[ "res://.import/Idle_casual.glb-ffd06217a447a6b6711a9469dbf8f802.scn" ]
 
 [params]
 

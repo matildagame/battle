@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Correr.fbx-67c3393cc38d38211c9003f86989e5c7.scn"
+path="res://.import/Andar_arma.glb-b05b2d0f755f9ca1d5be2b564ce0ecac.scn"
 
 [deps]
 
-source_file="res://personajes/Matildo2.0/animaciones/Correr.fbx"
-dest_files=[ "res://.import/Correr.fbx-67c3393cc38d38211c9003f86989e5c7.scn" ]
+source_file="res://personajes/Matildo2.0/animaciones/Andar_arma.glb"
+dest_files=[ "res://.import/Andar_arma.glb-b05b2d0f755f9ca1d5be2b564ce0ecac.scn" ]
 
 [params]
 

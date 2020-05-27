@@ -39,7 +39,7 @@ func _on_token_id_ready(token):
 	var hair_id = int(IDs[3])
 	
 	# TODO: Set position within a predefinited area
-	var position = Vector3(-1.578,0.242,-18.31)
+	var position = Vector3(-1.578,0,-18.31)
 	
 	# Spwan the player
 	spawn(user_id,gender_id,texture_id,hair_id,position)

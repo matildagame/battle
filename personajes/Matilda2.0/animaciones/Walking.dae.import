@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Correr.fbx-67c3393cc38d38211c9003f86989e5c7.scn"
+path="res://.import/Walking.dae-b37c91eff028ef7c11dc2f02f55b09f8.scn"
 
 [deps]
 
-source_file="res://personajes/Matildo2.0/animaciones/Correr.fbx"
-dest_files=[ "res://.import/Correr.fbx-67c3393cc38d38211c9003f86989e5c7.scn" ]
+source_file="res://personajes/Matilda2.0/animaciones/Walking.dae"
+dest_files=[ "res://.import/Walking.dae-b37c91eff028ef7c11dc2f02f55b09f8.scn" ]
 
 [params]
 

@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Correr.fbx-67c3393cc38d38211c9003f86989e5c7.scn"
+path="res://.import/Girar_izquierda_arma.glb-2660f3110844b52af0c4590b70a5982d.scn"
 
 [deps]
 
-source_file="res://personajes/Matildo2.0/animaciones/Correr.fbx"
-dest_files=[ "res://.import/Correr.fbx-67c3393cc38d38211c9003f86989e5c7.scn" ]
+source_file="res://personajes/Matildo2.0/animaciones/Girar_izquierda_arma.glb"
+dest_files=[ "res://.import/Girar_izquierda_arma.glb-2660f3110844b52af0c4590b70a5982d.scn" ]
 
 [params]
 

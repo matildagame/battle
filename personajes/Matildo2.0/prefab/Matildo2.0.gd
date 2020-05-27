@@ -1,7 +1,7 @@
 extends KinematicBody
 
 # Name/id
-export var alias : String="Matilda"
+export var alias : String="Matildo"
 
 # if this is a remote character, its value is "false"
 export var is_local: bool =false
@@ -136,7 +136,7 @@ func set_hair_tone(id_tone):
 	
 	print($Skeleton/Pelo)
 	if id_tone >= 0 and id_tone <= 2:
-		$Skeleton/Pelo.get_surface_material(0).albedo_texture=load("res://personajes/Matilda2.0/materiales/"+hair_texture[id_tone])
+		$Skeleton/Pelo.get_surface_material(0).albedo_texture=load("res://personajes/Matildo2.0/materiales/"+hair_texture[id_tone])
 
 func set_texture(id_texture):
 	var texture=["base.jpg",
@@ -144,7 +144,7 @@ func set_texture(id_texture):
 				 "base_luz_suave.jpg"]
 	# TODO: Add texutres
 	if id_texture >= 0 and id_texture <= 2:
-		$Skeleton/Cuerpo.get_surface_material(0).albedo_texture=load("res://personajes/Matilda2.0/materiales/"+texture[id_texture])
+		$Skeleton/Cuerpo.get_surface_material(0).albedo_texture=load("res://personajes/Matildo2.0/materiales/"+texture[id_texture])
 
 # set postion within the world
 func set_position(position):
@@ -314,7 +314,7 @@ func take_ammunition(ammunitionToTake):
 
 # Funciones de Animacion
 func morir():
-	print("Matilda: Me muero :(")
+	print("Matildo: Me muero :(")
 	estado=ESTADOS.muriendo
 	anim.play("morir-espaldas")
 	muerta=true;
