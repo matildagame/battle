@@ -133,21 +133,20 @@ func set_alias(id_alias):
 	
 # set the hair color, from a set of base materials
 func set_hair_tone(id_tone):
-	var hair_texture=["pelo_principal.jpg",
-	"pelo1.jpg",
-	"pelo2.jpg"]
+	var hair_texture=["pelo1.jpg",
+	"pelo2.jpg",
+	"pelo3.jpg"]
 	
-	print($Skeleton/Pelo)
 	if id_tone >= 0 and id_tone <= 2:
-		$Skeleton/Pelo.get_surface_material(0).albedo_texture=load("res://personajes/Matilda2.0/materiales/"+hair_texture[id_tone])
+		$Skeleton/Pelo.get_surface_material(0).albedo_texture=load("res://personajes/Matildo2.0/materiales/"+hair_texture[id_tone])
 
 func set_texture(id_texture):
-	var texture=["base.jpg",
-				 "base_diferencia.jpg",
-				 "base_luz_suave.jpg"]
+	var texture=["base1.jpg",
+				 "base2.jpg",
+				 "base3.jpg"]
 	# TODO: Add texutres
 	if id_texture >= 0 and id_texture <= 2:
-		$Skeleton/Cuerpo.get_surface_material(0).albedo_texture=load("res://personajes/Matilda2.0/materiales/"+texture[id_texture])
+		$Skeleton/Cuerpo.get_surface_material(0).albedo_texture=load("res://personajes/Matildo2.0/materiales/"+texture[id_texture])
 
 # set postion within the world
 func set_position(position):
@@ -361,3 +360,5 @@ func _input(event):
 	elif event is InputEventMouseButton and event.button_index == 1 and event.pressed  and  event.doubleclick :
 		correr = true;
 		moving = true;		
+
+
