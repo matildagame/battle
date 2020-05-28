@@ -12,6 +12,7 @@ signal s_attack
 signal s_select
 signal s_move
 
+signal s_win
 
 # -----------------------------------------------------------------------------
 # GAME PARAMETERS
@@ -57,12 +58,6 @@ func _on_Timer_timeout():
 	print("¡Game Over!")
 
 
-# If the target is reached
-func _on_Target_body_entered(body):
-	if body == player:
-		print("Mission accomplished!")
-		GlobalVariables.win = true
-
 # Signal Handlers
 func _on_Controller_s_attack():
 	print("Señal caputarada: s_attack")
@@ -80,4 +75,6 @@ func _on_Controller_s_move():
 	pass
 	
 
+func _on_Controller_s_win():
+	print("WIN!")
 

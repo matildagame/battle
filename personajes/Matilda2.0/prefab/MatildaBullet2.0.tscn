@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://personajes/Matilda/prefab/MatildaBullet.gd" type="Script" id=1]
+[ext_resource path="res://personajes/Matilda2.0/prefab/MatildaBullet2.0.gd" type="Script" id=1]
 
 [sub_resource type="SphereShape" id=1]
 

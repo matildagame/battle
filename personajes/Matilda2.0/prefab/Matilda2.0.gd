@@ -27,7 +27,7 @@ var attackRate : float = 1.5
 # Navigation variables
 var path = []
 var path_ind = 0
-const move_speed = 3
+var move_speed = 3
 onready var nav = get_parent()
 
 # Hair tone:
@@ -58,7 +58,7 @@ const energia_100 = preload("res://GUIs/HUD/assets/barra_energia/energia_100.png
 onready var ammuntion_count = get_node("HUD/TopStats/AmmunitionBar/Count/Background/Number")
 
 # Scene resources
-const BULLET = preload("res://personajes/Matilda/prefab/MatildaBullet.tscn")
+const BULLET = preload("res://personajes/Matilda2.0/prefab/MatildaBullet2.0.tscn")
 var BulletPosition # Where the bullet is gonna be instaciated
 
 # Auxiliary scripts
@@ -66,8 +66,10 @@ var LineDrawer = preload("res://Personajes/Matilda/prefab/DrawLine3D.gd").new()
 
 # Auxiliary vbles
 var muerta=false;
+var correr=false;
+var moving=false;
 # Estados Animaciones
-enum ESTADOS {parado,andando,muriendo,bailando,rotando_derecha,rotando_izquierda}
+enum ESTADOS {parado,andando,corriendo,muriendo,bailando,rotando_derecha,rotando_izquierda}
 # Estado Inicial
 var estado=ESTADOS.parado
 
@@ -181,7 +183,13 @@ func _physics_process(delta):
 	# Go through the path!	
 	if GlobalVariables.move:
 		if path_ind < path.size():
-			andar()	
+			if correr:
+				correr()
+				move_speed = 5
+			else:
+				andar()
+				move_speed = 2
+					
 			var move_vec = (path[path_ind] - global_transform.origin)
 			#---------------------------------------------------------------------------------
 			# Normal Movement, Wherever, reach the path!
@@ -219,17 +227,21 @@ func _physics_process(delta):
 						# Face the enemy
 						look_at(GlobalVariables.target_enemy.translation,Vector3(0,1,0))
 						rotation_degrees.y += 180 # Por algun motivo hay que rotarlo 180º	
-						pararse()							
+						pararse()
+						moving = false;							
 					else:
-						pararse()	
+						pararse()
+						moving = false;	
 										
 		# Ha llegado a destino
 		if path_ind == path.size() and !muerta:
 			pararse()
+			moving = false;
 			
 	else:
 		# Only selected...
-		pararse()		
+		pararse()	
+		moving = false;	
 				
 #		
 func update_path(target_pos):
@@ -322,6 +334,10 @@ func morir():
 func andar():
 	estado=ESTADOS.andando
 	anim.play("andando")
+	
+func correr():
+	estado=ESTADOS.corriendo
+	anim.play("corriendo")
 
 func pararse():
 	estado=ESTADOS.parado
@@ -333,3 +349,25 @@ func draw_path(path_):
 		if i<len(path_)-1:
 			LineDrawer.DrawLine(path_[i],path_[i+1],Color(1, 0, 0),5)
 			
+#Events
+func _input(event):
+#	if !moving:
+#		# Walk
+#		if event is InputEventMouseButton  and event.button_index == 1 and event.pressed and !event.doubleclick:
+#			print("andar")
+#			correr = false;
+#			moving = true;
+#		# Run
+#		elif event is InputEventMouseButton and event.button_index == 1 and event.pressed  and  event.doubleclick :
+#			print("correr")
+#			correr = true;
+#			moving = true;
+
+	if event is InputEventMouseButton  and event.button_index == 1 and event.pressed and !event.doubleclick:
+		if !moving:
+			correr = false;
+			moving = true;
+	# Run
+	elif event is InputEventMouseButton and event.button_index == 1 and event.pressed  and  event.doubleclick :
+		correr = true;
+		moving = true;		

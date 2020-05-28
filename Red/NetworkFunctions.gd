@@ -31,7 +31,7 @@ func join(partida_id,token):
 # User has joined, needs to be spwaned
 func _on_token_id_ready(token):
 	# Extract Information from the token (e.g. "user:model:texture:haircolor" -> "jjramos:0:1:3")
-	token = "jjramos:0:1:0"
+	token = "jjramos:0:2:1"
 	var IDs = token.split(":")
 	var user_id = IDs[0]
 	var gender_id  = int(IDs[1])
@@ -68,8 +68,8 @@ func spawn(user_id,gender_id,texture_id,hair_id, position):
 		# OJO
 		get_node("/root/Laberinto/Navigation").add_child(player) # Laberinto
 		# Add specific features
-		player.set_alias(user_id)
-		player.set_hair_tone(hair_id)
-		player.set_texture(texture_id)
+#		player.set_alias(user_id)
+#		player.set_hair_tone(hair_id)
+#		player.set_texture(texture_id)
 		player.set_position(position)
 	

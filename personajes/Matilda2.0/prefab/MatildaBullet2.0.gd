@@ -2,7 +2,7 @@ extends Area
 
 var damage = 1;
 
-export(float) var PROJECTILE_SPEED = 0.1;
+export(float) var PROJECTILE_SPEED = 1;
 var direction 
 
 onready var enemy = GlobalVariables.target_enemy
