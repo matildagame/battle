@@ -11,8 +11,8 @@ onready var player = get_node("/root/Laberinto/Navigation/Matilda") # Laberinto
 signal s_attack
 signal s_select
 signal s_move
-
 signal s_win
+
 
 # -----------------------------------------------------------------------------
 # GAME PARAMETERS
@@ -22,6 +22,8 @@ var win = false;
 
 enum MODE { TIME_TRIAL, REACH_THE_GATE }
 export(MODE) var mode = MODE.REACH_THE_GATE
+
+export var automatic_attack = false;
 
 # Time Trial
 export var mins = 5
@@ -56,25 +58,25 @@ func _ready():
 # Time Trial timeout
 func _on_Timer_timeout():
 	print("¡Game Over!")
-
-
+	
 # Signal Handlers
-func _on_Controller_s_attack():
+func _on_Controller_s_move(target_pos):
+	if(!attack and !select):
+		print("Señal caputarada: s_move")
+		print(target_pos)
+	pass
+
+func _on_Controller_s_attack(target_pos):
 	print("Señal caputarada: s_attack")
 	print(attack)
 
 	pass # Replace with function body.
 
-func _on_Controller_s_select():
+func _on_Controller_s_select(target_pos):
 	print("Señal caputarada: s_select")
 	pass # Replace with function body.
 
-
-func _on_Controller_s_move():
-#	print("Señal caputarada: s_move")
-	pass
-	
-
 func _on_Controller_s_win():
 	print("WIN!")
+	# TODO: Through "Congratulations window..."
 

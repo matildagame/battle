@@ -31,7 +31,7 @@ func join(partida_id,token):
 # User has joined, needs to be spwaned
 func _on_token_id_ready(token):
 	# Extract Information from the token (e.g. "user:model:texture:haircolor" -> "jjramos:0:1:3")
-	token = "jjramos:1:1:1"
+	token = "jjramos:0:1:1"
 	var IDs = token.split(":")
 	var user_id = IDs[0]
 	var gender_id  = int(IDs[1])

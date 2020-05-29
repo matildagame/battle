@@ -40,7 +40,7 @@ func _input(event):
 			GlobalVariables.move = true
 			
 			# Moving, emit correspondig signal
-			GlobalVariables.emit_signal("s_move")
+			GlobalVariables.emit_signal("s_move",result.position)
 			
 		
 	#---------------------------------------------------------------------------

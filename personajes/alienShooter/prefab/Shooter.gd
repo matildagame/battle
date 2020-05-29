@@ -131,7 +131,7 @@ func _on_ChaseTimer_timeout():
 					target_detected = false;
 					
 	else:
-		if !muerto:		
+		if !muerto:
 			chasing_area = false;
 			pararse()
 	
@@ -241,8 +241,6 @@ func _input(event):
 		GlobalVariables.target_enemy = null;
 		
 		$Skeleton/alienMesh.set_surface_material(0,not_selected)
-
-
 
 func _on_Shooter_input_event(camera, event, click_position, click_normal, shape_idx):
 	# Select

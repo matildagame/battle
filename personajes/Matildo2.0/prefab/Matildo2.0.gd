@@ -107,25 +107,8 @@ func init(vida_100_, maxHP_ ,energia_100_,maxEp_,maxAp_,is_local_):
 #-------------------------------------------------------------------------------
 # SPAWN FUNCTIONS
 #-------------------------------------------------------------------------------
-# set the body texture, from a set of base materials
+
 # set the player alias, taken from the token
-
-func spawn(id_alias,id_gender,id,tone,id_texure):
-	pass
-
-# Set gender (Meshes,)
-func set_gender(id_gender):
-	# O: Female Mesh
-	# 1: Male Mesh	
-	var mesh=["idle.dae"]
-#	# TODO: Add meshes
-#	var matilda_mesh = load("res://personajes/Matilda/modelo/matilda.mesh")
-#	print(matilda_mesh)
-#	$Skeleton/Cuerpo.mesh = matilda_mesh
-#	$Skeleton/Cuerpo.set_surface_material(0, load("res://personajes/Matilda/modelo/Material_001.material"))
-
-	pass
-	
 func set_alias(id_alias):
 	alias = id_alias
 	$MejorIdentificador.nombre = id_alias
@@ -159,7 +142,7 @@ func set_position(position):
 # Attack timer
 func _on_AttackTimer_timeout():
 	
-	if(GlobalVariables.target_enemy!=null):
+	if(GlobalVariables.target_enemy!=null and GlobalVariables.attack  and GlobalVariables.automatic_attack):
 		var enemy_ray_cast = get_node(str(GlobalVariables.target_enemy.get_path()) + "/RayCast")
 		# While attack distance is not reached or there is not direct vision, keep moving...
 		if translation.distance_to(GlobalVariables.target_enemy.translation) <= attackDist and enemy_ray_cast.get_collider() == self:

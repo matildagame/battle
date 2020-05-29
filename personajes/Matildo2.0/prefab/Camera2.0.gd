@@ -39,8 +39,8 @@ func _input(event):
 			get_tree().call_group("units", "update_path", result.position)
 			GlobalVariables.move = true
 			
-			# Moving, emit correspondig signal
-			GlobalVariables.emit_signal("s_move")
+
+			GlobalVariables.emit_signal("s_move",result.position)
 			
 		
 	#---------------------------------------------------------------------------
