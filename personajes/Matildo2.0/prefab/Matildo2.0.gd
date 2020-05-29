@@ -2,6 +2,7 @@ extends KinematicBody
 
 # Name/id
 export var alias : String="Matilda"
+var playerID: String =""
 
 # if this is a remote character, its value is "false"
 export var is_local: bool =false
@@ -134,6 +135,15 @@ func set_texture(id_texture):
 # set postion within the world
 func set_position(position):
 	translation = position
+
+func set_username(username):
+	alias=username
+	
+func set_playerID(playerID):
+	self.playerID=playerID
+	
+func set_local(local):
+	is_local=local
 	
 #-------------------------------------------------------------------------------
 # #
@@ -335,13 +345,14 @@ func draw_path(path_):
 #Events
 func _input(event):
 
-	if event is InputEventMouseButton  and event.button_index == 1 and event.pressed and !event.doubleclick:
-		if !moving:
-			correr = false;
-			moving = true;
-	# Run
-	elif event is InputEventMouseButton and event.button_index == 1 and event.pressed  and  event.doubleclick :
-		correr = true;
-		moving = true;		
+	if is_local:
+		if event is InputEventMouseButton  and event.button_index == 1 and event.pressed and !event.doubleclick:
+			if !moving:
+				correr = false;
+				moving = true;
+		# Run
+		elif event is InputEventMouseButton and event.button_index == 1 and event.pressed  and  event.doubleclick :
+			correr = true;
+			moving = true;		
 
 

@@ -90,6 +90,9 @@ func _on_AttackTimer_timeout():
 func _on_ChaseTimer_timeout():
 	# Every "Chase Rate" seconds, update chasing
 	
+	if player==null:
+		player = get_node("/root/Laberinto/Navigation/Matilda")
+	
 	# Update navemesh path to player 
 	update_path(player.translation)
 	# Update Monter's forward direction

@@ -16,14 +16,14 @@ _global_script_class_icons={
 [application]
 
 config/name="battle2"
-run/main_scene="res://Niveles/Laberinto/Laberinto.tscn"
+run/main_scene="res://GUIs/Menus/LaberintoStartMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 GlobalVariables="*res://Singletons/GlobalVariables.gd"
 Global="*res://Singletons/Global.tscn"
-NetworkFunctions="*res://Red/NetworkFunctions.gd"
+MatildaLib="*res://Red/MatildaLib.gd"
 
 [rendering]
 

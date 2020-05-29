@@ -5,7 +5,7 @@ extends Node
 
 # Reference to Player
 #onready var player = get_node("/root/WorldMap/Navigation/Matilda") # World Map 
-onready var player = get_node("/root/Laberinto/Navigation/Matilda") # Laberinto
+#onready var player = get_node("/root/Laberinto/Navigation/Matilda") # Laberinto
 
 # Event Signals
 signal s_attack
@@ -23,7 +23,8 @@ var win = false;
 enum MODE { TIME_TRIAL, REACH_THE_GATE }
 export(MODE) var mode = MODE.REACH_THE_GATE
 
-
+export var playerID=""
+export var player_list={}
 
 # Time Trial
 export var mins = 5
@@ -79,3 +80,41 @@ func _on_Controller_s_win():
 	print("WIN!")
 	# TODO: Through "Congratulations window..."
 
+func set_players_list(list):
+	player_list.clear()
+		
+	for player in list:
+		var character={}
+		character["playerID"]=player["playerID"]
+		character["mesh_id"]=player["mesh"]
+		character["texture_id"]=player["body_texture"]
+		character["hair_id"]=player["hair_texture"]
+		character["username"]=player["username"]
+		character["position"]=null
+				
+		player_list[player["playerID"]]=player # Debería ser character
+	
+	pass
+	
+func set_players_positions(list):
+	
+	for id in list:
+		player_list[id["playerID"]]["position"]=id["position"]
+	
+func start_level(level):
+	
+	########################
+#	var character={}
+#	character["playerID"]=playerID
+#	character["username"]=playerID
+#	character["mesh_id"]=0
+#	character["texture_id"]=0
+#	character["hair_id"]=0
+#	character["position"]=Vector3(-1.578,0,-18.31)	
+#
+#	player_list[playerID]=character
+	########################
+		
+	# Let's change the scene:
+	get_tree().change_scene("res://Niveles/"+level)
+	

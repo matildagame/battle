@@ -31,7 +31,7 @@ onready var die_timer = get_node("DieTimer")
 onready var anim = get_node("AnimationPlayer")
 onready var ray_cast = get_node("RayCast") 
 #onready var player = get_node("/root/WorldMap/Navigation/Matilda") # World Map 
-onready var player = get_node("/root/Laberinto/Navigation/Matilda") # Laberinto
+var player
 
 # Scene resources
 const BULLET = preload("res://personajes/alienShooter/prefab/Bullet.tscn")
@@ -61,6 +61,9 @@ enum ESTADOS {parado,andando,atacando,muriendo,bailando,rotando_derecha,rotando_
 var estado=ESTADOS.parado
 
 func _ready():
+	# Get the player position
+	player = get_node("/root/Laberinto/Navigation/Matilda") # Laberinto
+	
 	# Connect signals to the global node
 	GlobalVariables.connect("s_select", GlobalVariables, "_on_Controller_s_select")
 	GlobalVariables.connect("s_attack", GlobalVariables, "_on_Controller_s_attack")
@@ -102,6 +105,9 @@ func _on_AttackTimer_timeout():
 # TIMERS	
 func _on_ChaseTimer_timeout():
 	# Every "Chase Rate" seconds, update chasing
+	
+	if player==null:
+		player = get_node("/root/Laberinto/Navigation/Matilda")
 	
 	# Update navemesh path to player 
 	update_path(player.translation)

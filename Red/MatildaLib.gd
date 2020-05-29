@@ -1,62 +1,58 @@
 extends Node
 
-###########################
-# Test of signals
-signal registered_received(token)
-signal join_setup(player_list,npc_list,object_list)
-signal players_list_updated(player_list)
-signal start_match(player_spawn_info)
-############################
-
-# Game name... maybe this should be set up in other script?
-export var nombre_juego="Battlev0.1"
-
-# for our protocol, we should keep the state of its FSM:
-enum ESTADOS {sin_conexion, conectado, esperando_conexion, 
-	esperando_conexion_servidor, conectado_servidor_juego}
-var estado=ESTADOS.sin_conexion
+signal register_reply(playerID)
+signal players_list_update(player_list)
+signal start_match(players_position)
 
 # Default address and port of the MatiLib companion proxy
 export var lib_servidor="localhost"
 export var lib_puerto=9998
 
-# Game Server data:
-export var servidor="localhost"
-export var puerto=9090
+export var jar_path="c:\\tmp\\MatildaLib3-1.0-SNAPSHOT.jar"
+export var matilda_class="es.ugr.tstc.matilda.matildalib.MatildaLibClientLauncher"
+
+# Our protocolo will be line-oriented. 
+var buffer=""
 
 # Let's Define the error causes:
 enum ERROR {no_error, opening_port, establish_library_connection, socket_error}
 
+# for our protocol, we should keep the state of its FSM:
+enum ESTADOS {sin_conexion, conectado, esperando_register_reply, esperando_conexion, 
+	esperando_conexion_servidor, conectado_servidor_juego}
+var estado=ESTADOS.sin_conexion
+
+var Message
+
 # Let's use a socket to communicate to the proxy
-var client_socket : StreamPeerTCP
+var client_socket : StreamPeerTCP =null
 
-# Our protocolo will be line-oriented. 
-var buffer=""
-var received_messages=[]
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	# init()
 	pass
 
+
 func init():
+	# Lanzamos la parte java de MatildaLib, en un puerto aleatorio:
+#	var rng = RandomNumberGenerator.new()
+#	rng.randomize()
+#	lib_puerto = 9900+rng.randi_range(0, 1000)	
+#	var pid = OS.execute("java.exe", ["-cp", jar_path, matilda_class], false)
+	
+	Message=load("res://Red/Mensaje.gd")
+		
+	# Esperamos unos segundos para que se active el servidor de matilda:
+	# yield(get_tree().create_timer(5),"timeout")
+
 	# Initializate TCP connection with matildaLib.java and send a first message (GameVersion)
 	init_matlib_connection(lib_servidor,lib_puerto)
 	
-#	# This shouldn't be here... maybe some part would need to make up something
-#	# beforehand...
-#	# Send a Second message indicating the connection parameters with the GameServer.
-#	init_server_connection(servidor,puerto)
-	
-	# received_messages.resize(20)
-
 # initialize the network part:
 func init_matlib_connection(lib_servidor,lib_puerto):
 	var error=conectar_biblioteca(lib_servidor,lib_puerto)
 	if error==ERROR.establish_library_connection:
 		pass
 	elif error==ERROR.no_error:
-		pass
+		estado=ESTADOS.conectado
 	return error
 
 # Just establish a connection to the proxy:
@@ -69,19 +65,12 @@ func conectar_biblioteca(host,puerto):
 	
 	error=client_socket.connect_to_host(host,puerto)	
 	
-	if error==OK:
-		error=enviar_mensaje_saludo(nombre_juego)
-	else:
-		error=ERROR.no_error
-	return error
-	
+#	if error==OK:
+#		error=enviar_mensaje_saludo(nombre_juego)
+#	else:
+#		error=ERROR.no_error
+#	return error
 
-## todo...
-#func read_line(socket):
-#	var linea=""
-#
-#	return linea
-		
 # Just receive messages from the proxy, and shows them at the console..
 # This should be split into a function which queues each parsed message, 
 # (maybe in a thread: https://docs.godotengine.org/en/stable/tutorials/threads/using_multiple_threads.html)?
@@ -109,6 +98,7 @@ func _process(delta):
 					# Whena a full message is received, we must process it
 					# (or maybe queue it for later?)
 					var message=parse_raw_message(linea)
+					print("Received: "+linea)
 					
 					process_message(message)
 					
@@ -116,140 +106,60 @@ func _process(delta):
 					salto=buffer.find("\n")
 					if salto<=-1:
 						break
-
+						
+						
 func process_message(mensaje):
 	
 	match estado:
-		ESTADOS.esperando_conexion:
-			match mensaje.tipo:
-				Message.TIPO.libraryConnectionReply:
-					estado=ESTADOS.conectado
-				_:
-					print("Error, mensaje no esperado!!!! "+str(mensaje.tipo))
+	
 		ESTADOS.sin_conexion:
 			pass
 		ESTADOS.conectado:
-			pass
-		ESTADOS.esperando_conexion_servidor:
 			match mensaje.tipo:
-				Message.TIPO.serverConnectionReply:
-					if mensaje.merror!=0:
-						print("No se pudo conectar al servidor del juego!")
-					else:
-						print("Conectado al servidor del juego :)")
-						estado=ESTADOS.conectado_servidor_juego
-				_:
-					print("Error, mensaje no esperado!!!!")
-			pass
+				Message.TIPO.PLAYERS_LIST_UPDATE:
+					emit_signal("players_list_update",mensaje.players_list)
+
+				Message.TIPO.START_MATCH:
+					emit_signal("start_match",mensaje.players_position)
+
+					
+		ESTADOS.esperando_register_reply:
+			match mensaje.tipo:
+				Message.TIPO.REGISTER_REPLY:
+					emit_signal("register_reply",mensaje.campos["playerID"])
+					estado=ESTADOS.conectado
+#			pass
+#		ESTADOS.esperando_conexion_servidor:
+#			match mensaje.tipo:
+#				Message.TIPO.serverConnectionReply:
+#					if mensaje.merror!=0:
+#						print("No se pudo conectar al servidor del juego!")
+#					else:
+#						print("Conectado al servidor del juego :)")
+#						estado=ESTADOS.conectado_servidor_juego
+#				_:
+#					print("Error, mensaje no esperado!!!!")
+#			pass
 
 # Let's split a String into several fields
 func parse_raw_message(linea):
-	var message=Message.new(linea)
-	
+	var message=Message.new()
+	message.parse(linea)
 	return message
 	
-# Message Class... Maybe it should be extracted to its own file script...
-# However, it is only used in this script, at the moment.
-class Message:
+func register(nombre,room,mesh,body_texture,hair_texture,direccion_servidor,puerto_servidor):
+	var message=Message.new()
+	message.build_register_message(nombre,room,mesh,body_texture,hair_texture,direccion_servidor,puerto_servidor)
 	
-	enum TIPO {invalidMessage,libraryConnectionRequest,libraryChatMessage,
-	libraryConnectionReply,
-	rpcSpawn,rpcUpdatePosition,rpcUpdateValue,
-	serverConnectionReply, serverConnectionRequest,
-	PLAYERS_LIST_UPDATE,START_MATCH,JOIN_REPLY}
+	estado=ESTADOS.esperando_register_reply
 	
-	var tipo=TIPO.invalidMessage
-	var merror=0
-	
-	func _init(linea):
-		var campos=linea.split(" ")
-		var orden=campos[0]
+	return enviar_mensaje(message.serialize())
 		
-#		match orden:
-#			"PLAYERS_LIST_UPDATE":
-#				tipo=TIPO.PLAYERS_LIST_UPDATE;
-#				players_list=parse_player_list_update(campos[1]);
-#				emit_signal("players_list_updated",players_list)
-#			"START_MATCH":
-#				tipo=TIPO.START_MATCH
-#				player_spawn_info=parse_start_match(campos[1]);
-#				emit_signal("start_match",player_spawn_info)
-#			"JOIN_REPLY":
-#				tipo=TIPO.JOIN_REPLY
-#				token=parse_join_reply(campo[1])
-#				emit_signal("registered_received",token)
-#			"Hi":
-#				tipo=TIPO.libraryConnectionReply
-#			"Spawn":
-#				tipo=TIPO.rpcSpawn
-#			"CONNECT":
-#				tipo=TIPO.serverConnectionReply
-#				if campos[1]=="Ok":
-#					merror=0
-#				else:
-#					merror=int(campos[1])
-#			_:
-#				print(">> "+linea+" << Unknown!")
-
-	func serialize():
-		match(tipo):
-			TIPO.JOIN_REQUEST:
-				pass
-
-
 func enviar_mensaje(mensaje):
 	var error=ERROR.no_error
 	if client_socket!=null:
 		# We should define better this protocol...
 		client_socket.put_data(PoolByteArray((mensaje+"\n").to_ascii()))
+		
 	else:
 		error=ERROR.socket_error
-		
-#
-# Sends to matildaLib the necessary parameters to communicate with GameServer		
-func init_server_connection(servidor_,puerto_):
-#	var error=ERROR.no_error
-#	if client_socket!=null: # and estado==ESTADOS.conectado:
-#		# We should define better this protocol...
-#		client_socket.put_data(PoolByteArray(("CONNECT:"+servidor_+":"+str(puerto_)+"\n").to_ascii()))
-#		estado=ESTADOS.esperando_conexion_servidor
-#	else:
-#		error=ERROR.socket_error
-	var error=enviar_mensaje("CONNECT:"+servidor_+":"+str(puerto_))
-	if error==ERROR.no_error:
-		estado=ESTADOS.esperando_conexion_servidor
-	return error
-
-# Sends to matildaLib the GameVersion to initialize connection	
-# We should define better this protocol...
-func enviar_mensaje_saludo(nombre_juego):
-	var error=enviar_mensaje("HI::"+nombre_juego)
-	if error==ERROR.no_error:
-		estado=ESTADOS.esperando_conexion
-	return error;
-		
-		
-func enviar_mensaje_crear(object_, name_):
-	return enviar_mensaje("Spawn::"+name_)
-
-func register(nombre,contrasenia,direccion_servidor,puerto_servidor):
-	### emit_signal("registered_received","token0000")
-	return enviar_mensaje("REG:"+nombre+":"+contrasenia+":"+
-		direccion_servidor+":"+str(puerto_servidor))
-	
-func join(partida_id,token):
-	return enviar_mensaje("JOIN:"+partida_id+":"+token)
-	
-## Game events, which are communicated to the server:
-#func _on_Matilda_created(object_, name_):
-#	print("on_Matilda_created")
-#	enviar_mensaje_crear(object_, name_)
-#
-#
-#
-#func _on_Controller_s_move():
-#	pass # Replace with function body.
-#
-#
-#func _on_Controller_s_select():
-#	pass # Replace with function body.

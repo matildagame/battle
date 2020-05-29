@@ -21,3 +21,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	identificador.set_global_position(camera.unproject_position(global_transform.origin) - offset)
+
+func set_etiqueta(nombre):
+	self.nombre=nombre
+	identificador.text=nombre
