@@ -23,7 +23,7 @@ var win = false;
 enum MODE { TIME_TRIAL, REACH_THE_GATE }
 export(MODE) var mode = MODE.REACH_THE_GATE
 
-export var automatic_attack = false;
+
 
 # Time Trial
 export var mins = 5
@@ -31,6 +31,7 @@ export var mins = 5
 # -----------------------------------------------------------------------------
 # ATTACKING PARAMETERS
 #------------------------------------------------------------------------------
+export var automatic_attack = true;
 # Current target enemy object
 onready var target_enemy = null
 # Boleans used por Player when attacking/selecting enemies
@@ -63,12 +64,10 @@ func _on_Timer_timeout():
 func _on_Controller_s_move(target_pos):
 	if(!attack and !select):
 		print("Señal caputarada: s_move")
-		print(target_pos)
 	pass
 
 func _on_Controller_s_attack(target_pos):
 	print("Señal caputarada: s_attack")
-	print(attack)
 
 	pass # Replace with function body.
 

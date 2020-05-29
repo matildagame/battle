@@ -52,8 +52,8 @@ onready var attacking_area = false
 
 var EnemyToPlayer # Vector pointing to player
 var AngleToPlayer # Angle to Player
-var forward  # Monter's forward direction
-var FOV = 180 # Monster's Filed Of Vision
+var forward  	  # Monter's forward direction
+var FOV = 180     # Monster's Filed Of Vision
 
 # Estados Animaciones
 enum ESTADOS {parado,andando,atacando,muriendo,bailando,rotando_derecha,rotando_izquierda}

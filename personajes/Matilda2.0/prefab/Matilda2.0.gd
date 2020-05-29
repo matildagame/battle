@@ -82,9 +82,14 @@ func _ready():
 	add_to_group("units")
 	add_child(LineDrawer)
 	
-	attack_timer.wait_time = attackRate
-	attack_timer.start()
-	BulletPosition = $Skeleton # Ojo, esto tiene que ser donde esté el arma!
+	if !GlobalVariables.automatic_attack:
+		pass
+	
+	# Automatic attack	
+	else:
+		attack_timer.wait_time = attackRate
+		attack_timer.start()
+		BulletPosition = $Skeleton # Ojo, esto tiene que ser donde esté el arma!
 
 
 # Just ot instantiate and change parameters afterwards:
@@ -141,7 +146,7 @@ func set_position(position):
 
 # Attack timer
 func _on_AttackTimer_timeout():
-	
+	print("eeeeeeeeeeeeeeeeeeeee")
 	if(GlobalVariables.target_enemy!=null and GlobalVariables.attack and GlobalVariables.automatic_attack):
 		var enemy_ray_cast = get_node(str(GlobalVariables.target_enemy.get_path()) + "/RayCast")
 		# While attack distance is not reached or there is not direct vision, keep moving...
@@ -341,4 +346,8 @@ func _input(event):
 	# Run
 	elif event is InputEventMouseButton and event.button_index == 1 and event.pressed  and  event.doubleclick :
 		correr = true;
-		moving = true;		
+		moving = true;	
+		
+		if !moving:
+			print("Atacck")
+			
