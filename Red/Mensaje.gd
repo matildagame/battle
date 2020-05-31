@@ -10,7 +10,8 @@ enum TIPO {invalidMessage,libraryConnectionRequest,libraryChatMessage,
 	libraryConnectionReply,
 	rpcSpawn,rpcUpdatePosition,rpcUpdateValue,
 	serverConnectionReply, serverConnectionRequest,
-	PLAYERS_LIST_UPDATE,START_MATCH,JOIN_REPLY,REGISTER_REQUEST, REGISTER_REPLY}
+	PLAYERS_LIST_UPDATE,START_MATCH,JOIN_REPLY,REGISTER_REQUEST, REGISTER_REPLY,
+	UPDATE_ROUTE}
 	
 var tipo=TIPO.invalidMessage
 var merror=0
@@ -19,6 +20,13 @@ var players_list=[]
 
 var campos={}
 
+func build_update_local_route(playerID,position,running):
+	campos["playerID"]=playerID
+	campos["position"]=position
+	campos["running"]=running
+
+	tipo=TIPO.UPDATE_ROUTE
+	
 func build_register_message(nombre,room,mesh,body_texture,hair_texture,direccion_servidor,puerto_servidor):
 	campos["nombre"]=nombre
 	campos["room"]=room
@@ -64,6 +72,9 @@ func parse(linea):
 		"START_MATCH":
 			tipo=TIPO.START_MATCH
 			parse_start_match(campo[1])
+		"UPDATE_ROUTE":
+			tipo=TIPO.UPDATE_ROUTE
+			parse_update_route(campo)
 		_:
 			print(">> "+linea+" << Unknown!")
 
@@ -117,6 +128,32 @@ func parse_character_description(item):
 
 	return description
 
+func parse_update_route(campo):
+	var error=0
+	
+	if campo[0]=="UPDATE_ROUTE":
+		var cp=campo[1].split(DEL)
+		
+		campos["playerID"]=cp[0]
+		campos["position"]=parse_coordinate(cp[1])
+		campos["running"]=cp[2]
+		tipo=TIPO.UPDATE_ROUTE
+	else:
+		error=1
+		tipo=TIPO.invalidMessage
+	
+	return error;
+	
+func parse_coordinate(coordinate):
+	var position=Vector3(0,0,0)
+	
+	var co=coordinate.split(DEL2)
+	position.x=float(co[0])
+	position.y=float(co[1])
+	position.z=float(co[2])
+		
+	return position
+
 func parse_register_reply_message(campo):
 	var error=0
 	
@@ -138,5 +175,19 @@ func serialize():
 			line="REGISTER"+SP+campos["nombre"]+DEL+campos["room"]+DEL+campos["mesh"]+DEL+campos["body_texture"]+DEL+campos["hair_texture"]+DEL+campos["direccion_servidor"]+DEL+campos["puerto_servidor"]
 		TIPO.REGISTER_REPLY:
 			line="REGISTER_REPLY"+SP+"TODO"
-			
+		TIPO.UPDATE_ROUTE:
+			var runn="0"
+			if campos["running"]:
+				runn="1"
+				
+			line="UPDATE_ROUTE"+SP+campos["playerID"]+DEL+serialize_coordinate(campos["position"])+DEL+	runn		
 	return line
+
+func serialize_coordinate(coordinate):
+	var line=""
+	# var coor=coordinate.split(DEL2)
+	line=str(coordinate.x)+DEL2+str(coordinate.y)+DEL2+str(coordinate.z)
+	
+	return line
+
+	

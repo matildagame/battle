@@ -1,5 +1,8 @@
 extends KinematicBody
 
+#Constants
+const ray_length = 1000
+
 # Name/id
 export var alias : String="Matilda"
 var playerID: String =""
@@ -9,6 +12,10 @@ export var is_local: bool =false
 
 # Signals: These are our events
 signal created(object_,name_)
+signal moverse(playerID,target,running)
+
+export var running_speed = 5
+export var walking_speed = 2
 
 # Health points
 export var maxHp : int = 100
@@ -68,12 +75,17 @@ var LineDrawer = preload("res://Personajes/Matilda/prefab/DrawLine3D.gd").new()
 
 # Auxiliary vbles
 var muerta=false;
-var correr=false;
+var correr_=false;
 var moving=false;
+
+var move=false
+
 # Estados Animaciones
 enum ESTADOS {parado,andando,corriendo,muriendo,bailando,rotando_derecha,rotando_izquierda}
 # Estado Inicial
 var estado=ESTADOS.parado
+
+var camera
 
 
 func _ready():
@@ -91,6 +103,8 @@ func _ready():
 		attack_timer.wait_time = attackRate
 		attack_timer.start()
 		BulletPosition = $Skeleton # Ojo, esto tiene que ser donde esté el arma!
+	
+	camera=get_viewport().get_camera()
 
 
 # Just ot instantiate and change parameters afterwards:
@@ -125,17 +139,15 @@ func set_hair_tone(id_tone):
 	"pelo1.jpg",
 	"pelo2.jpg"]
 	
-	print($Skeleton/Pelo)
-	if id_tone >= 0 and id_tone <= 2:
-		$Skeleton/Pelo.get_surface_material(0).albedo_texture=load("res://personajes/Matilda2.0/materiales/"+hair_texture[id_tone])
+	$Skeleton/Pelo.get_surface_material(0).albedo_texture=load("res://personajes/Matilda2.0/materiales/"+hair_texture[id_tone%hair_texture.size()])
 
 func set_texture(id_texture):
 	var texture=["base.jpg",
 				 "base_diferencia.jpg",
 				 "base_luz_suave.jpg"]
 	# TODO: Add texutres
-	if id_texture >= 0 and id_texture <= 2:
-		$Skeleton/Cuerpo.get_surface_material(0).albedo_texture=load("res://personajes/Matilda2.0/materiales/"+texture[id_texture])
+	# print(id_texture%texture.size()+" "+id_texture)
+	$Skeleton/Cuerpo.get_surface_material(0).albedo_texture=load("res://personajes/Matilda2.0/materiales/"+texture[id_texture%texture.size()])
 
 # set postion within the world
 func set_position(position):
@@ -149,6 +161,7 @@ func set_playerID(playerID):
 	
 func set_local(local):
 	is_local=local
+	
 	
 #-------------------------------------------------------------------------------
 # #
@@ -178,14 +191,14 @@ func fire():
 			
 func _physics_process(delta):
 	# Go through the path!	
-	if GlobalVariables.move:
+	if move:
 		if path_ind < path.size():
-			if correr:
+			if correr_:
 				correr()
-				move_speed = 5
+				move_speed = running_speed # 5
 			else:
 				andar()
-				move_speed = 2
+				move_speed = walking_speed #2
 					
 			var move_vec = (path[path_ind] - global_transform.origin)
 			#---------------------------------------------------------------------------------
@@ -234,11 +247,12 @@ func _physics_process(delta):
 		if path_ind == path.size() and !muerta:
 			pararse()
 			moving = false;
-			
+			move = false
 	else:
 		# Only selected...
 		pararse()	
 		moving = false;	
+		move = false
 				
 #		
 func update_path(target_pos):
@@ -350,15 +364,46 @@ func draw_path(path_):
 func _input(event):
 
 	if is_local:
-		if event is InputEventMouseButton  and event.button_index == 1 and event.pressed and !event.doubleclick:
-			if !moving:
-				correr = false;
-				moving = true;
-		# Run
-		elif event is InputEventMouseButton and event.button_index == 1 and event.pressed  and  event.doubleclick :
-			correr = true;
-			moving = true;	
 		
-			if !moving:
-				print("Atacck")
+		camera=get_viewport().get_camera()
 			
+		# Move to Any point PRESSED in the world
+		if event is InputEventMouseButton and event.pressed and event.button_index == 1:
+			var from = camera.project_ray_origin(event.position)
+			var to = from + camera.project_ray_normal(event.position) * ray_length
+			var space_state = camera.get_world().direct_space_state
+			var result = space_state.intersect_ray(from, to, [], 1)
+			
+			if event.doubleclick:
+				correr_ = true
+			else:
+				correr_= false
+			
+			if result:
+				
+				andar_hacia(result.position,correr_)
+			
+				# Moving, emit correspondig signal
+				emit_signal("moverse",playerID,result.position,correr_)
+				# emit_signal("s_move",result.position)
+			
+			
+#		if event is InputEventMouseButton  and event.button_index == 1 and event.pressed and !event.doubleclick:
+#			if !moving:
+#				correr = false;
+#				moving = true;
+#		# Run
+#		elif event is InputEventMouseButton and event.button_index == 1 and event.pressed  and  event.doubleclick :
+#			correr = true;
+#			moving = true;	
+#
+#			if !moving:
+#				print("Atacck")
+			
+func andar_hacia(position,correrr):
+	update_path(position)
+	move = true
+	moving=true
+	correr_=false
+	if correrr:
+		correr_=true

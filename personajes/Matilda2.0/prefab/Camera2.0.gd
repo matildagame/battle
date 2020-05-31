@@ -2,7 +2,7 @@ extends Camera
   
 const ray_length = 1000
 
-onready var player = get_parent()
+onready var player = null
 var offset : Vector3
 
 export var distance = -4
@@ -27,20 +27,20 @@ func _ready():
 #	
 func _input(event):
 	
-	# Move to Any point PRESSED in the world
-	if event is InputEventMouseButton and event.pressed and event.button_index == 1:
-		var from = project_ray_origin(event.position)
-		var to = from + project_ray_normal(event.position) * ray_length
-		var space_state = get_world().direct_space_state
-		var result = space_state.intersect_ray(from, to, [], 1)
-		if result:
-			
-			# Update path to wherever is clicked
-			get_tree().call_group("units", "update_path", result.position)
-			GlobalVariables.move = true
-			
-			# Moving, emit correspondig signal
-			GlobalVariables.emit_signal("s_move",result.position)
+#	# Move to Any point PRESSED in the world
+#	if event is InputEventMouseButton and event.pressed and event.button_index == 1:
+#		var from = project_ray_origin(event.position)
+#		var to = from + project_ray_normal(event.position) * ray_length
+#		var space_state = get_world().direct_space_state
+#		var result = space_state.intersect_ray(from, to, [], 1)
+#		if result:
+#
+#			# Update path to wherever is clicked
+#			get_tree().call_group("units", "update_path", result.position)
+#			GlobalVariables.move = true
+#
+#			# Moving, emit correspondig signal
+#			GlobalVariables.emit_signal("s_move",result.position)
 			
 		
 	#---------------------------------------------------------------------------
@@ -61,9 +61,14 @@ func _input(event):
 					fov += 1.5				
 		
 			
+func set_player(player_):
+	player=player_
+	
 # Follow the player
 func _physics_process(delta):
-	var target = get_parent().get_global_transform().origin
-	var pos = target + offset
-	var up = Vector3(0, 1, 0)
-	look_at_from_position(pos, target, up)
+	
+	if player!=null:
+		var target = player.get_global_transform().origin
+		var pos = target + offset
+		var up = Vector3(0, 1, 0)
+		look_at_from_position(pos, target, up)

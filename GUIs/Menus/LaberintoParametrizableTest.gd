@@ -13,9 +13,9 @@ var playerID=""
 
 var status
 
-export var body_texture=0
-export var hair_texture=0
-export var mesh=0
+export var body_texture="0"
+export var hair_texture="0"
+export var mesh="0"
 
 var global
  
@@ -26,6 +26,8 @@ func _ready():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	mesh=str(rng.randi_range(0,1))
+	#### Solo Matildas:
+	mesh="0"
 	body_texture=str(rng.randi_range(0,2))
 	hair_texture=str(rng.randi_range(0,2))
 	

@@ -62,7 +62,7 @@ var estado=ESTADOS.parado
 
 func _ready():
 	# Get the player position
-	player = get_node("/root/Laberinto/Navigation/Matilda") # Laberinto
+	# player = get_node("/root/Laberinto/Navigation/Matilda") # Laberinto
 	
 	# Connect signals to the global node
 	GlobalVariables.connect("s_select", GlobalVariables, "_on_Controller_s_select")
@@ -102,12 +102,24 @@ func _on_AttackTimer_timeout():
 			# Matilda is dead, then any more attacks
 			attack_timer.stop()	
 
+func search_prey():
+	var prey=null
+	var min_distance=100000000;
+	
+	for member in get_tree().get_nodes_in_group("units"):
+		var distance=member.transform.origin.distance_to(transform.origin)
+		if distance<min_distance:
+			min_distance=distance
+			prey=member
+	
+	return  prey
+
 # TIMERS	
 func _on_ChaseTimer_timeout():
 	# Every "Chase Rate" seconds, update chasing
 	
 	if player==null:
-		player = get_node("/root/Laberinto/Navigation/Matilda")
+		player = search_prey()
 	
 	# Update navemesh path to player 
 	update_path(player.translation)

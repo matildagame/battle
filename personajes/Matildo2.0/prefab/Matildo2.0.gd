@@ -112,8 +112,8 @@ func init(vida_100_, maxHP_ ,energia_100_,maxEp_,maxAp_,is_local_):
 # set the player alias, taken from the token
 func set_alias(id_alias):
 	alias = id_alias
-	$MejorIdentificador.nombre = id_alias
-	print(alias)
+	$MejorIdentificador.set_etiqueta(id_alias)
+	
 	
 # set the hair color, from a set of base materials
 func set_hair_tone(id_tone):
@@ -121,16 +121,14 @@ func set_hair_tone(id_tone):
 	"pelo2.jpg",
 	"pelo3.jpg"]
 	
-	if id_tone >= 0 and id_tone <= 2:
-		$Skeleton/Pelo.get_surface_material(0).albedo_texture=load("res://personajes/Matildo2.0/materiales/"+hair_texture[id_tone])
+	$Skeleton/Pelo.get_surface_material(0).albedo_texture=load("res://personajes/Matildo2.0/materiales/"+hair_texture[id_tone%hair_texture.size()])
 
 func set_texture(id_texture):
 	var texture=["base1.jpg",
 				 "base2.jpg",
 				 "base3.jpg"]
 	# TODO: Add texutres
-	if id_texture >= 0 and id_texture <= 2:
-		$Skeleton/Cuerpo.get_surface_material(0).albedo_texture=load("res://personajes/Matildo2.0/materiales/"+texture[id_texture])
+	$Skeleton/Cuerpo.get_surface_material(0).albedo_texture=load("res://personajes/Matildo2.0/materiales/"+texture[id_texture%texture.size()])
 
 # set postion within the world
 func set_position(position):

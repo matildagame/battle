@@ -6,7 +6,7 @@ export var quantity = 1
 
 # Referencia a matilda
 #onready var player = get_node("/root/WorldMap/Navigation/Matilda") # World Map 
-onready var player = get_node("/root/Laberinto/Navigation/Matilda") # Laberinto
+var player = null # get_node("/root/Laberinto/Navigation/Matilda") # Laberint# 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

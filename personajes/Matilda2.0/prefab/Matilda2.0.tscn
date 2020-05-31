@@ -1,9 +1,8 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://personajes/Matilda2.0/animaciones/Material_001.material" type="Material" id=1]
 [ext_resource path="res://personajes/Matilda2.0/animaciones/Material_002.material" type="Material" id=2]
 [ext_resource path="res://GUIs/HUD/HUD.tscn" type="PackedScene" id=3]
-[ext_resource path="res://personajes/Matilda2.0/prefab/Camera2.0.gd" type="Script" id=4]
 [ext_resource path="res://personajes/Matilda2.0/prefab/Matilda2.0.gd" type="Script" id=5]
 [ext_resource path="res://GUIs/signaling/MejorIdentificador.tscn" type="PackedScene" id=6]
 [ext_resource path="res://personajes/Matilda2.0/animaciones/Running.anim" type="Animation" id=8]
@@ -358,10 +357,6 @@ shape = SubResource( 1 )
 [node name="AttackTimer" type="Timer" parent="."]
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
-
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.55102, 0.688978, -0.470836, 1.34512e-07, 0.564218, 0.825626, 0.834492, -0.454936, 0.310895, -1.19283, 2.10311, 1.05606 )
-script = ExtResource( 4 )
 
 [node name="MejorIdentificador" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05306, 0 )

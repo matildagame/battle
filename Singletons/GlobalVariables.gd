@@ -10,7 +10,7 @@ extends Node
 # Event Signals
 signal s_attack
 signal s_select
-signal s_move
+signal s_move(point,run)
 signal s_win
 
 
@@ -102,19 +102,7 @@ func set_players_positions(list):
 		player_list[id["playerID"]]["position"]=id["position"]
 	
 func start_level(level):
-	
-	########################
-#	var character={}
-#	character["playerID"]=playerID
-#	character["username"]=playerID
-#	character["mesh_id"]=0
-#	character["texture_id"]=0
-#	character["hair_id"]=0
-#	character["position"]=Vector3(-1.578,0,-18.31)	
-#
-#	player_list[playerID]=character
-	########################
-		
+			
 	# Let's change the scene:
 	get_tree().change_scene("res://Niveles/"+level)
 	

@@ -3,6 +3,7 @@ extends Node
 signal register_reply(playerID)
 signal players_list_update(player_list)
 signal start_match(players_position)
+signal update_route(p,d,r)
 
 # Default address and port of the MatiLib companion proxy
 export var lib_servidor="localhost"
@@ -122,6 +123,8 @@ func process_message(mensaje):
 				Message.TIPO.START_MATCH:
 					emit_signal("start_match",mensaje.players_position)
 
+				Message.TIPO.UPDATE_ROUTE:
+					emit_signal("update_route",mensaje.campos["playerID"],mensaje.campos["position"],mensaje.campos["running"])
 					
 		ESTADOS.esperando_register_reply:
 			match mensaje.tipo:
@@ -155,6 +158,13 @@ func register(nombre,room,mesh,body_texture,hair_texture,direccion_servidor,puer
 	
 	return enviar_mensaje(message.serialize())
 		
+		
+func update_local_route(playerID,position,running):
+	var message=Message.new()
+	message.build_update_local_route(playerID,position,running)
+	
+	return enviar_mensaje(message.serialize())
+
 func enviar_mensaje(mensaje):
 	var error=ERROR.no_error
 	if client_socket!=null:

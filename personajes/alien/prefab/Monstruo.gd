@@ -33,7 +33,7 @@ onready var die_timer = get_node("DieTimer")
 onready var anim = get_node("AnimationPlayer")
 onready var ray_cast = get_node("RayCast") 
 #onready var player = get_node("/root/WorldMap/Navigation/Matilda") # World Map 
-onready var player = get_node("/root/Laberinto/Navigation/Matilda") # Laberinto
+var player # = get_node("/root/Laberinto/Navigation/Matilda") # Laberinto
 
 # Materials
 const selected = preload("res://personajes/alien/material/AlienSeleccionado.material")
@@ -86,12 +86,24 @@ func _on_AttackTimer_timeout():
 			# Matilda is dead, then any more attacks
 			attack_timer.stop()	
 
+func search_prey():
+	var prey=null
+	var min_distance=100000000;
+	
+	for member in get_tree().get_nodes_in_group("units"):
+		var distance=member.transform.origin.distance_to(transform.origin)
+		if distance<min_distance:
+			min_distance=distance
+			prey=member
+	
+	return  prey
+	
 # TIMERS	
 func _on_ChaseTimer_timeout():
 	# Every "Chase Rate" seconds, update chasing
 	
 	if player==null:
-		player = get_node("/root/Laberinto/Navigation/Matilda")
+		player = search_prey()
 	
 	# Update navemesh path to player 
 	update_path(player.translation)

@@ -6,12 +6,14 @@ extends Spatial
 # var b = "text"
 
 var global
+var networkManager
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
 	global=$"/root/GlobalVariables"	
-	
+	networkManager=$NetworkManager
+		
 	# Let's put the players:
 	spawn_the_players(global.player_list)
 
@@ -23,9 +25,15 @@ func spawn_the_players(players_list):
 		var player=players_list[playerID]
 		if playerID==global.playerID:
 			local=true
+			
 		
-		spawn(player["playerID"],int(player["mesh"]),int(player["body_texture"]),\
+		var objeto=spawn(player["playerID"],int(player["mesh"]),int(player["body_texture"]),\
 			int(player["hair_texture"]),player["position"], player["username"],local)
+		
+		# Si es nuestro personaje, le asignamos la cámara:
+		if objeto.is_local:
+			$Camera.set_player(objeto)
+			objeto.connect("moverse",networkManager,"_on_local_player_movement")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -72,3 +80,7 @@ func spawn(user_id,mesh_id,texture_id,hair_id, position,username, local):
 		player.set_position(position)
 		player.set_playerID(user_id)
 		player.set_local(local)
+		player.name=user_id
+		
+		
+	return player

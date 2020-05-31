@@ -14,7 +14,8 @@ var offset
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	identificador = $CanvasLayer/Identificador
-	camera=get_node("../Camera")
+	#camera=get_node("../Camera")
+	camera=get_viewport().get_camera()
 	offset = Vector2(identificador.get_size().x/2, 0)
 	identificador.text=nombre
 
